@@ -1,0 +1,26 @@
+#version 150
+
+in vec3 position;
+in vec2 texCoord;
+in vec3 normal;
+
+in ivec3 world_pos;
+
+out vec2 texCoordFinal;
+out vec3 surfaceNormal;
+out vec3 toLightVector;
+
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+uniform vec3 sunPos;
+
+void main()
+{
+	mat4 modelMatrix = mat4(1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, world_pos.x, world_pos.y, world_pos.z, 1.0);
+	vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+	texCoordFinal = texCoord;
+	gl_Position = projectionMatrix * viewMatrix * worldPosition;
+
+	surfaceNormal = (modelMatrix * vec4(normal,0.0)).xyz;
+	toLightVector = sunPos - worldPosition.xyz;
+}

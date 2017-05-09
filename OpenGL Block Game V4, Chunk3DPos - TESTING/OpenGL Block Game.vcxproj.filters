@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\World Gen">
+      <UniqueIdentifier>{e58fb5aa-a630-4e67-826b-f1eef6f03c88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Engine">
+      <UniqueIdentifier>{3e4f67c7-dbff-4de5-9c48-2556957bbfcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Engine\meshes">
+      <UniqueIdentifier>{c6c7fef6-5558-48f6-a5e2-1bd0a6994ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Engine\display">
+      <UniqueIdentifier>{c47645c4-945a-43b0-9f6d-b045ac9cf5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Engine\camera">
+      <UniqueIdentifier>{0d5626c6-2e67-497b-bfce-6de29b67c1b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Engine\renderEngine">
+      <UniqueIdentifier>{f0e7f892-1710-4af0-96c9-151984c4bd2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Engine\shaders">
+      <UniqueIdentifier>{ad4b2bf9-d38b-407c-a034-7bd3c12ed33b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World Gen">
+      <UniqueIdentifier>{912049d5-c461-49ff-a022-093201bdf3d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Engine">
+      <UniqueIdentifier>{485fc640-9b28-47b9-9f6c-78da87d4d536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Engine\meshes">
+      <UniqueIdentifier>{f10e5d1d-b5b8-4013-a2e7-22f1358129dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Engine\display">
+      <UniqueIdentifier>{6ce27805-d21c-4e69-8d03-68371d4e4d25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Engine\camera">
+      <UniqueIdentifier>{ab36f33f-7d70-4d26-9562-4f40357b820f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Engine\renderEngine">
+      <UniqueIdentifier>{5aa34a22-593d-424d-891e-6a62412113a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Engine\shaders">
+      <UniqueIdentifier>{679d07b6-852d-42a1-8316-c56a07ff5b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{8280f4f0-1a70-46b6-ada3-dfe4f2a55b40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Old">
+      <UniqueIdentifier>{dd2a4ae1-6999-43b4-8916-cea5486f6525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Old">
+      <UniqueIdentifier>{3af10c84-de91-4be9-999a-6d91d2b9f575}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="displaywindow.cpp">
+      <Filter>Source Files\Game Engine\display</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\Game Engine\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Source Files\Game Engine\meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="masterRenderer.cpp">
+      <Filter>Source Files\Game Engine\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="texIDLoader.cpp">
+      <Filter>Source Files\Game Engine\meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="blockRenderer.cpp">
+      <Filter>Source Files\Game Engine\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="entityShaderprogram.cpp">
+      <Filter>Source Files\Game Engine\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="shaderprogram.cpp">
+      <Filter>Source Files\Game Engine\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="blockShaderprogram.cpp">
+      <Filter>Source Files\Game Engine\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="blockVAOLoader.cpp">
+      <Filter>Source Files\Game Engine\renderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Game Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Source Files\Game Engine\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="world_gen_3.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkManager.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="modelLoader.cpp">
+      <Filter>Source Files\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="entityRenderer.cpp">
+      <Filter>Source Files\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="world_gen_0.cpp">
+      <Filter>Source Files\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="world_gen_1.cpp">
+      <Filter>Source Files\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="world_gen_2.cpp">
+      <Filter>Source Files\Old</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk3DPos.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="Chunk.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="displaywindow.h">
+      <Filter>Header Files\Game Engine\display</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files\Game Engine\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files\Game Engine\meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="masterRenderer.h">
+      <Filter>Header Files\Game Engine\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="texIDLoader.h">
+      <Filter>Header Files\Game Engine\meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="blockRenderer.h">
+      <Filter>Header Files\Game Engine\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="entityShaderprogram.h">
+      <Filter>Header Files\Game Engine\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="shaderprogram.h">
+      <Filter>Header Files\Game Engine\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="blockShaderprogram.h">
+      <Filter>Header Files\Game Engine\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="blockVAOLoader.h">
+      <Filter>Header Files\Game Engine\renderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Header Files\Game Engine\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="world_gen_3.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkManager.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="chunkV0.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="chunkV1.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2D.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="world_gen_0.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="world_gen_1.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="world_gen_2.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="entityRenderer.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="modelLoader.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="immovableEntity.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files\Old</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="Chunk3DPos.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="entityFragmentShader.txt">
+      <Filter>Source Files\Game Engine\shaders</Filter>
+    </Text>
+    <Text Include="entityVertexShader.txt">
+      <Filter>Source Files\Game Engine\shaders</Filter>
+    </Text>
+    <Text Include="blockVertexShader.txt">
+      <Filter>Source Files\Game Engine\shaders</Filter>
+    </Text>
+    <Text Include="blockFragmentShader.txt">
+      <Filter>Source Files\Game Engine\shaders</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
