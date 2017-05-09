@@ -5,7 +5,7 @@
 
 TexIDLoader::TexIDLoader(){}
 
-GLuint TexIDLoader::LoadTexID(const std::string& filename)
+GLuint TexIDLoader::LoadTexID(const std::string const& filename)
 {
 	GLuint texID;
 

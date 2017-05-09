@@ -7,7 +7,7 @@
 
 bool world_needs_updating = true;
 
-BlockRenderer::BlockRenderer(BlockShaderprogram& blockShaderprogram) : blockShaderprogram(blockShaderprogram)
+BlockRenderer::BlockRenderer(BlockShaderprogram& const blockShaderprogram) : blockShaderprogram(blockShaderprogram)
 {
 	//upload projection matrix once
 	blockShaderprogram.Bind();
@@ -19,11 +19,9 @@ BlockRenderer::BlockRenderer(BlockShaderprogram& blockShaderprogram) : blockShad
 	loader.MakeBlockVAO(block_vao, block_vbo, block_ebo);
 }
 
-void BlockRenderer::render(ChunkMap& chunkMap)
+void BlockRenderer::render(ChunkMap& const chunkMap)
 {
-	//int count = 0;
 	for (ChunkAndPosPair& chunkAndPosPair : chunkMap) {
-		//std::cout << count << ": " << chunkAndPosPair.first.x << " " << chunkAndPosPair.first.y << " " << chunkAndPosPair.first.z << std::endl;
 		BindVAO();
 		BindTexture(2);
 		PrepareBlocks(chunkAndPosPair);
@@ -31,7 +29,6 @@ void BlockRenderer::render(ChunkMap& chunkMap)
 		UnbindTexture(2);
 		UnbindVAO();
 	}
-	//std::cout << std::endl << std::endl;
 }
 
 void BlockRenderer::BindVAO()
@@ -62,21 +59,21 @@ void BlockRenderer::UnbindVAO()
 }
 
 
-void BlockRenderer::BindTexture(GLuint texID)
+void BlockRenderer::BindTexture(const GLuint texID)
 {
 	//bind texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texID);
 }
 
-void BlockRenderer::UnbindTexture(GLuint texID)
+void BlockRenderer::UnbindTexture(const GLuint texID)
 {
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void BlockRenderer::PrepareBlocks(ChunkAndPosPair& pair_chunk_and_pos)
+void BlockRenderer::PrepareBlocks(ChunkAndPosPair& const pair_chunk_and_pos)
 {
 	const Chunk3DPos chunk_pos = pair_chunk_and_pos.first;
 	Chunk* chunk = pair_chunk_and_pos.second;

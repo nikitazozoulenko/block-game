@@ -1,12 +1,12 @@
 #include "Chunk3DPos.h"
 #include "camera.h"
 
-Camera zerocam = Camera(glm::vec3(0, 0, 0), 0.0f, 0.0f, 0.0f);
-Camera& Chunk3DPos::camera = zerocam;
+extern Camera player_camera;
+Camera& Chunk3DPos::camera = player_camera;
 
-Chunk3DPos::Chunk3DPos(int& x, int& y, int& z) : x(x), y(y), z(z) { }
+Chunk3DPos::Chunk3DPos(const int& const x, const int& const y, const int& const z) : x(x), y(y), z(z) { }
 
-void Chunk3DPos::UpdateCamera(Camera& other_camera)
+void Chunk3DPos::UpdateCamera(const Camera& other_camera)
 {
 	camera = other_camera;
 }
