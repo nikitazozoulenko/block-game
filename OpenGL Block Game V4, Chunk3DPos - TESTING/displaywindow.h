@@ -9,9 +9,9 @@
 
 class Displaywindow {
 public:
-	Displaywindow(int, int, const char*, GLFWmonitor*, GLFWwindow*);
+	Displaywindow(const int, const int, const char*, GLFWmonitor*, GLFWwindow*);
 	void PollEvents();
-	void ClearColor(float, float, float, float);
+	void ClearColor(const float, const float, const float, const float);
 	void SwapBuffers();
 	int ShouldClose();
 	GLFWwindow* window;

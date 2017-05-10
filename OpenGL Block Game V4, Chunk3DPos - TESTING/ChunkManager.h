@@ -16,8 +16,8 @@ typedef std::pair<const Chunk3DPos, Chunk*> ChunkAndPosPair;
 class ChunkManager
 {
 public:
-	ChunkManager(Camera& camera);
-	void create_chunk(int x, int y, int z);
+	ChunkManager(const Camera& const camera);
+	void create_chunk(const int x, const int y, const int z);
 	inline ChunkMap& GetChunkMap() { return chunkMap; }
 protected:
 private:
@@ -26,7 +26,7 @@ private:
 	static Camera& camera;
 	ChunkMap chunkMap;
 
-	static void InitStaticCamera(Camera& camera);
+	static void InitStaticCamera(const Camera& const camera);
 };
 
 #endif // !CHUNKMANAGER_H

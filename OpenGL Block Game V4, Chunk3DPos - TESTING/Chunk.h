@@ -7,7 +7,7 @@
 
 #include <glm\glm.hpp>
 
-class Chunk
+struct Chunk
 {
 public:
 

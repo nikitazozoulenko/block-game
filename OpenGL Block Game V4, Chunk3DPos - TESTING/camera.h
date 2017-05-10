@@ -5,13 +5,13 @@
 class Camera
 {
 public:
-	Camera(glm::vec3 position, float pitch, float yaw, float roll);
+	Camera(const glm::vec3 position, const float pitch, const float yaw, const float roll);
 
-	void move_forward(float ds);
-	void move_sideways(float ds);
-	void look_horizontal(float alpha);
-	void look_vertical(float alpha);
-	void move_up(float ds);
+	void move_forward(const float ds);
+	void move_sideways(const float ds);
+	void look_horizontal(const float alpha);
+	void look_vertical(const float alpha);
+	void move_up(const float ds);
 
 	inline glm::vec3& get_pos() { return pos; }
 	inline float& get_pitch() { return pitch; }

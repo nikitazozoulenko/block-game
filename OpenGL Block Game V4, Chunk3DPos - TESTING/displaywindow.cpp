@@ -14,7 +14,7 @@ static void cursor_callback_move(GLFWwindow* window, double xpos, double ypos)
 	last_ypos = ypos;
 }
 
-Displaywindow::Displaywindow(int width, int height, const char* title, GLFWmonitor* glfw_monitor, GLFWwindow* glfw_other_window)
+Displaywindow::Displaywindow(const int width, const int height, const char* const title, GLFWmonitor* glfw_monitor, GLFWwindow* glfw_other_window)
 {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -23,7 +23,6 @@ Displaywindow::Displaywindow(int width, int height, const char* title, GLFWmonit
 	window = glfwCreateWindow(width, height, title, glfw_monitor, glfw_other_window);
 	glfwMakeContextCurrent(window);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
 
 	//key callbacks
 	glfwSetCursorPosCallback(window, cursor_callback_move);
@@ -39,7 +38,7 @@ void Displaywindow::SwapBuffers()
 	glfwSwapBuffers(window);
 }
 
-void Displaywindow::ClearColor(float r, float b, float g, float a)
+void Displaywindow::ClearColor(const float r, const float b, const float g, const float a)
 {
 
 }

@@ -4,7 +4,7 @@
 Camera zerocam2 = Camera(glm::vec3(0, 0, 0), 0.0f, 0.0f, 0.0f);
 Camera& ChunkManager::camera = zerocam2;
 
-ChunkManager::ChunkManager(Camera& camera) : worldGenerator(WorldGenerator())
+ChunkManager::ChunkManager(const Camera& const camera) : worldGenerator(WorldGenerator())
 {
 	//map is default initialized
 
@@ -12,12 +12,12 @@ ChunkManager::ChunkManager(Camera& camera) : worldGenerator(WorldGenerator())
 	InitStaticCamera(camera);
 }
 
-void ChunkManager::InitStaticCamera(Camera& other_camera)
+void ChunkManager::InitStaticCamera(const Camera& const other_camera)
 {
 	camera = other_camera;
 }
 
-void ChunkManager::create_chunk(int x, int y, int z)
+void ChunkManager::create_chunk(const int x, const int y, const int z)
 {
 	Chunk3DPos position(x, y, z);
 	chunkMap[position] = init_chunk(worldGenerator.GenChunkAtPosition(x, y, z), position);
@@ -31,7 +31,7 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 		{
 			for (int z = 0; z != Z_CHUNK_SIZE; ++z)
 			{
-				uint16_t& currentBlock = chunk->blockArray[x + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE];
+				uint16_t& const currentBlock = chunk->blockArray[x + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE];
 				if (currentBlock == 1)
 				{
 					if (x != 0)
