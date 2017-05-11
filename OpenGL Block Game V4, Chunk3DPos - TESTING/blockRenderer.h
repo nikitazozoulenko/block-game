@@ -7,10 +7,10 @@
 class BlockRenderer
 {
 public:
-	BlockRenderer(BlockShaderprogram& const blockShaderprogram);
+	BlockRenderer(BlockShaderprogram& blockShaderprogram);
 	virtual ~BlockRenderer();
 
-	void render(ChunkMap& const chunkMap);
+	void render(const ChunkMap& chunkMap);
 
 private:
 	BlockShaderprogram& blockShaderprogram;
@@ -19,7 +19,7 @@ private:
 	void UnbindVAO();
 	void BindTexture(const GLuint texID);
 	void UnbindTexture(const GLuint texID);
-	void PrepareBlocks(ChunkAndPosPair& const chunkAndPosPair);
+	void PrepareBlocks(const ChunkAndPosPair& const chunkAndPosPair);
 
 	//enum for the vertex buffer objects
 	enum

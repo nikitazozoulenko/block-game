@@ -42,8 +42,6 @@ int main()
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-
-
 	//Camera and chunkmanager
 	Chunk3DPos::UpdateCamera(player_camera);
 	ChunkManager chunkManager(player_camera);

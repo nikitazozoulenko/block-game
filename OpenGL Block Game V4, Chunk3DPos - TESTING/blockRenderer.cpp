@@ -7,7 +7,7 @@
 
 bool world_needs_updating = true;
 
-BlockRenderer::BlockRenderer(BlockShaderprogram& const blockShaderprogram) : blockShaderprogram(blockShaderprogram)
+BlockRenderer::BlockRenderer(BlockShaderprogram& blockShaderprogram) : blockShaderprogram(blockShaderprogram)
 {
 	//upload projection matrix once
 	blockShaderprogram.Bind();
@@ -19,9 +19,9 @@ BlockRenderer::BlockRenderer(BlockShaderprogram& const blockShaderprogram) : blo
 	loader.MakeBlockVAO(block_vao, block_vbo, block_ebo);
 }
 
-void BlockRenderer::render(ChunkMap& const chunkMap)
+void BlockRenderer::render(const ChunkMap& chunkMap)
 {
-	for (ChunkAndPosPair& chunkAndPosPair : chunkMap) {
+	for (const ChunkAndPosPair& chunkAndPosPair : chunkMap) {
 		BindVAO();
 		BindTexture(2);
 		PrepareBlocks(chunkAndPosPair);
@@ -73,7 +73,7 @@ void BlockRenderer::UnbindTexture(const GLuint texID)
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void BlockRenderer::PrepareBlocks(ChunkAndPosPair& const pair_chunk_and_pos)
+void BlockRenderer::PrepareBlocks(const ChunkAndPosPair& const pair_chunk_and_pos)
 {
 	const Chunk3DPos chunk_pos = pair_chunk_and_pos.first;
 	Chunk* chunk = pair_chunk_and_pos.second;
@@ -112,74 +112,6 @@ void BlockRenderer::PrepareBlocks(ChunkAndPosPair& const pair_chunk_and_pos)
 	//glBufferSubData(GL_ARRAY_BUFFER, block_vbo[i][WORLD_VERTEX_BUFFER], 0, chunk->worldPositionArray[i]);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
-//void BlockRenderer::PrepareBlocks(ChunkAndPosPair& chunkAndPosPair)
-//{
-//	const Chunk3DPos chunkPosition = chunkAndPosPair.first;
-//	Chunk* currentChunk = chunkAndPosPair.second;
-//
-//	if (currentChunk->needsUpdating) {
-//		std::vector<glm::ivec3> world_positions_vector;
-//		for (int y = 0; y != Y_CHUNK_SIZE; ++y)
-//		{
-//			for (int x = 0; x != X_CHUNK_SIZE; ++x)
-//			{
-//				for (int z = 0; z != Z_CHUNK_SIZE; ++z)
-//				{
-//					uint16_t& currentBlock = currentChunk->blockArray[x + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE];
-//
-//					if (currentBlock != 0)
-//					{
-//						if (x != 0 && x != X_CHUNK_SIZE - 1) {
-//							if (z != 0 && z != Z_CHUNK_SIZE - 1) {
-//								if (y != 0 && y != Y_CHUNK_SIZE - 1) {
-//									if (currentChunk->blockArray[(x + 1) + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] == 0) {
-//										world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//									}
-//									else if (currentChunk->blockArray[(x - 1) + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] == 0) {
-//										world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//									}
-//									else if (currentChunk->blockArray[x + (z + 1)*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] == 0) {
-//										world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//									}
-//									else if (currentChunk->blockArray[x + (z - 1)*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] == 0) {
-//										world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//									}
-//									else if (currentChunk->blockArray[x + z*X_CHUNK_SIZE + (y + 1)*X_CHUNK_SIZE*Z_CHUNK_SIZE] == 0) {
-//										world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//									}
-//									else if (currentChunk->blockArray[x + z*X_CHUNK_SIZE + (y - 1)*X_CHUNK_SIZE*Z_CHUNK_SIZE] == 0) {
-//										world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//									}
-//								}
-//								else {
-//									world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//								}
-//							}
-//							else {
-//								world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//							}
-//						}
-//						else {
-//							world_positions_vector.push_back(glm::ivec3(chunkPosition.x*X_CHUNK_SIZE + x, chunkPosition.y*Y_CHUNK_SIZE + y, chunkPosition.z*Z_CHUNK_SIZE + z));
-//						}
-//					}
-//				}
-//			}
-//		}
-//		currentChunk->countRenderedBlocks = world_positions_vector.size();
-//		currentChunk->worldPositionArray = new glm::ivec3[currentChunk->countRenderedBlocks];
-//		for (int i = 0; i != currentChunk->countRenderedBlocks; ++i)
-//		{
-//			currentChunk->worldPositionArray[i] = world_positions_vector[i];
-//		}
-//		currentChunk->needsUpdating = false;
-//	}
-//	glBindBuffer(GL_ARRAY_BUFFER, block_vbo[WORLD_VERTEX_BUFFER]);
-//	glBufferData(GL_ARRAY_BUFFER, currentChunk->countRenderedBlocks * 3 * sizeof(int), currentChunk->worldPositionArray, GL_STREAM_DRAW);
-//	//glBufferSubData(GL_ARRAY_BUFFER, block_vbo[WORLD_VERTEX_BUFFER], 0, world_positions);                           i dont need this??????? 
-//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-//
-//}
 
 BlockRenderer::~BlockRenderer()
 {

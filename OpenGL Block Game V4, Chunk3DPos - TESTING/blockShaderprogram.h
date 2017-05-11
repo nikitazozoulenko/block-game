@@ -7,11 +7,11 @@
 class BlockShaderprogram : public Shaderprogram
 {
 public:
-	BlockShaderprogram(std::string &, std::string &);
+	BlockShaderprogram(const std::string& const, const std::string& const);
 
-	void UpdateViewMatrix(glm::mat4& viewMatrix);
-	void UpdateProjectionMatrix(glm::mat4& viewMatrix);
-	void UpdateSunPos(glm::vec3 sunPos);
+	void UpdateViewMatrix(const glm::mat4& const viewMatrix);
+	void UpdateProjectionMatrix(const glm::mat4& const viewMatrix);
+	void UpdateSunPos(const glm::vec3 sunPos);
 
 	virtual ~BlockShaderprogram();
 protected:
