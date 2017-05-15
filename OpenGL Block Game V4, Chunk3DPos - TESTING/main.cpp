@@ -32,6 +32,11 @@ double last_xpos, last_ypos;
 
 int main()
 {
+	uint16_t testint1 = 0xffff;
+	std::cout << testint1 << std::endl;
+	uint16_t testint2 = 0xffff;
+	testint2 = testint2 << 1;
+	std::cout << testint2 << std::endl;
 	//init glfw
 	glfwInit();
 
@@ -60,11 +65,11 @@ int main()
 	//sun
 	Light sun(glm::vec3(10000000, 20000000, 5000000));
 
-	for (int x = 0; x != 1; ++x)
+	for (int x = 0; x != 3; ++x)
 	{
-		for (int y = 0; y != 1; ++y)
+		for (int y = 0; y != 3; ++y)
 		{
-			for (int z = 0; z != 1; ++z)
+			for (int z = 0; z != 3; ++z)
 			{
 				chunkManager.create_chunk(x, y, z);
 			}

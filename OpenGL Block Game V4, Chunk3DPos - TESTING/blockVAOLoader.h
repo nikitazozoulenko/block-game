@@ -13,9 +13,19 @@ public:
 
 	void MakeBlockVAO(GLuint& vao, GLuint* vbo_array, GLuint& ebo);
 
+	void make_vao_UP(GLuint& vao, GLuint* vbo_array);
+	void make_vao_DOWN(GLuint& vao, GLuint* vbo_array);
+	void make_vao_NORTH(GLuint& vao, GLuint* vbo_array);
+	void make_vao_SOUTH(GLuint& vao, GLuint* vbo_array);
+	void make_vao_EAST(GLuint& vao, GLuint* vbo_array);
+	void make_vao_WEST(GLuint& vao, GLuint* vbo_array);
+
 	~BlockVAOLoader();
 
 private:
+
+	void load_vao(GLuint& vao, GLuint* vbo_array, GLuint& ebo, Vertex* vertices, unsigned int* indices, int numVertices, int numIndices);
+	void load_vao222(GLuint& vao, GLuint* vbo_array, Vertex* vertices,  int numVertices);
 
 	//enum for the vertex buffer objects
 	enum

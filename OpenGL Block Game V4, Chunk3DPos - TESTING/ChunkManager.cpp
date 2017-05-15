@@ -42,11 +42,13 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 							{
 								uint16_t add = 0b0000010000000000;
 								currentBlock += add;
+								
 							}
 							if (chunk->blockArray[(x - 1) + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] != 0)
 							{
 								uint16_t add = 0b0000100000000000;
 								currentBlock += add;
+
 							}
 						}
 						else
@@ -55,11 +57,13 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 							{
 								uint16_t add = 0b0000010000000000;
 								currentBlock += add;
+
 							}
 							if (chunk->blockArray[(x - 1) + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] != 0)
 							{
 								uint16_t add = 0b0000100000000000;
 								currentBlock += add;
+
 							}
 						}
 					}
@@ -69,11 +73,13 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 						{
 							uint16_t add = 0b0000100000000000;
 							currentBlock += add;
+
 						}
 						if (chunk->blockArray[(x + 1) + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] != 0)
 						{
 							uint16_t add = 0b0000010000000000;
 							currentBlock += add;
+
 						}
 					}
 					if (y != 0)
@@ -84,11 +90,13 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 							{
 								uint16_t add = 0b0001000000000000;
 								currentBlock += add;
+
 							}
 							if (chunk->blockArray[x + z*X_CHUNK_SIZE + (y - 1)*X_CHUNK_SIZE*Z_CHUNK_SIZE] != 0)
 							{
 								uint16_t add = 0b0010000000000000;
 								currentBlock += add;
+
 							}
 						}
 						else
@@ -139,6 +147,7 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 							{
 								uint16_t add = 0b0100000000000000;
 								currentBlock += add;
+
 							}
 							if (chunk->blockArray[x + (z - 1)*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] != 0)
 							{

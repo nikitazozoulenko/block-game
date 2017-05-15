@@ -9,7 +9,7 @@ MasterRenderer::MasterRenderer() :
 {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
+	glFrontFace(GL_CW);
 
 	//TEMPORARY?????
 	glEnable(GL_DEPTH_TEST);
