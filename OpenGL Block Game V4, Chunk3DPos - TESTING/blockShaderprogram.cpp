@@ -1,6 +1,6 @@
 #include "blockShaderProgram.h"
 
-BlockShaderprogram::BlockShaderprogram(std::string& vertexfile, std::string& fragmentfile)
+BlockShaderprogram::BlockShaderprogram(const std::string& const vertexfile, const std::string& const fragmentfile)
 {
 	programID = glCreateProgram();
 	shaders[VERTEXSHADER] = CreateShader(LoadShader(vertexfile), GL_VERTEX_SHADER);
@@ -29,19 +29,19 @@ BlockShaderprogram::BlockShaderprogram(std::string& vertexfile, std::string& fra
 	uniforms[SUN_POS] = glGetUniformLocation(programID, "sunPos");
 }
 
-void BlockShaderprogram::UpdateViewMatrix(glm::mat4& viewMatrix)
+void BlockShaderprogram::UpdateViewMatrix(const glm::mat4& const viewMatrix)
 {
 	//for every frame
 	glUniformMatrix4fv(uniforms[VIEW_MATRIX], 1, GL_FALSE, &viewMatrix[0][0]);
 }
 
-void BlockShaderprogram::UpdateProjectionMatrix(glm::mat4& projectionMatrix)
+void BlockShaderprogram::UpdateProjectionMatrix(const glm::mat4& const projectionMatrix)
 {
 	//only once i think
 	glUniformMatrix4fv(uniforms[PROJECTION_MATRIX], 1, GL_FALSE, &projectionMatrix[0][0]);
 }
 
-void BlockShaderprogram::UpdateSunPos(glm::vec3 sunPos)
+void BlockShaderprogram::UpdateSunPos(const glm::vec3 sunPos)
 {
 	//every frame
 	glUniform3f(uniforms[SUN_POS], sunPos.x, sunPos.y, sunPos.z);

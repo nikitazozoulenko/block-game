@@ -11,10 +11,23 @@ struct Chunk
 {
 public:
 
-	glm::ivec3* worldPositionArray;
+	enum Block{
+		
+
+		SOUTH,
+		NORTH,
+		DOWN,
+		UP,
+		WEST,
+		EAST,
+
+		NUM_DIRECTIONS
+	};
+
+	glm::ivec3* worldPositionArray[6];
 	uint16_t blockArray[X_CHUNK_SIZE * Y_CHUNK_SIZE * Z_CHUNK_SIZE];
-	int countRenderedBlocks;
-	bool needsUpdating = true;
+	int countRenderedBlocks[6];
+	bool needsUpdating[6] = { true, true, true, true, true, true };
 
 protected:
 private:

@@ -3,23 +3,27 @@
 
 #include "blockShaderprogram.h"
 #include "ChunkManager.h"
+#include "Chunk.h"
 
 class BlockRenderer
 {
 public:
-	BlockRenderer(BlockShaderprogram& const blockShaderprogram);
+	BlockRenderer(BlockShaderprogram& blockShaderprogram);
 	virtual ~BlockRenderer();
 
-	void render(ChunkMap& const chunkMap);
+	void render(const ChunkMap& chunkMap, Camera& camera);
 
 private:
 	BlockShaderprogram& blockShaderprogram;
 
-	void BindVAO();
+	void BindVAO(int i);
 	void UnbindVAO();
 	void BindTexture(const GLuint texID);
 	void UnbindTexture(const GLuint texID);
-	void PrepareBlocks(ChunkAndPosPair& const chunkAndPosPair);
+	//void PrepareBlocks(const ChunkAndPosPair& const chunkAndPosPair, int i);
+	void prepare_blocks(const ChunkAndPosPair& const pair_chunk_and_pos, unsigned int i);
+
+	uint16_t bitmask[6] = { 1 << 5, 1 << 4, 1 << 3, 1 << 2, 1 << 1, 1 << 0 };
 
 	//enum for the vertex buffer objects
 	enum
@@ -34,9 +38,9 @@ private:
 	};
 
 	//IDs for buffers
-	GLuint block_vao;
-	GLuint block_vbo[NUM_BUFFERS];
-	GLuint block_ebo;
+	GLuint block_vao[Chunk::Block::NUM_DIRECTIONS];
+	GLuint block_vbo[Chunk::Block::NUM_DIRECTIONS][NUM_BUFFERS];
+	GLuint block_ebo[Chunk::Block::NUM_DIRECTIONS];
 };
 
 #endif // !BLOCKRENDERER_H

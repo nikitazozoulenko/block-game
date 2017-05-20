@@ -16,17 +16,19 @@ typedef std::pair<const Chunk3DPos, Chunk*> ChunkAndPosPair;
 class ChunkManager
 {
 public:
-	ChunkManager(const Camera& const camera);
+	ChunkManager(Camera& const camera);
 	void create_chunk(const int x, const int y, const int z);
+	void unload_chunk(Chunk* chunk, Chunk3DPos pos);
 	inline ChunkMap& GetChunkMap() { return chunkMap; }
+	void ChunkManager::loop();
 protected:
 private:
 	Chunk* init_chunk(Chunk* const chunk, const Chunk3DPos& const position);
 	WorldGenerator worldGenerator;
-	static Camera& camera;
+	Camera& const camera;
 	ChunkMap chunkMap;
 
-	static void InitStaticCamera(const Camera& const camera);
+	
 };
 
 #endif // !CHUNKMANAGER_H

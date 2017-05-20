@@ -49,6 +49,11 @@ void BlockVAOLoader::MakeBlockVAO(GLuint& vao, GLuint* vbo_array, GLuint& ebo)
 	int numVertices = sizeof(vertices) / sizeof(vertices[0]);
 	int numIndices = sizeof(indices) / sizeof(indices[0]);
 
+	load_vao(vao, vbo_array, ebo, vertices, indices, numVertices, numIndices);
+}
+
+void BlockVAOLoader::load_vao(GLuint& vao, GLuint* vbo_array, GLuint& ebo, Vertex* vertices, unsigned int* indices, int numVertices, int numIndices)
+{
 	glm::vec3* positions = new glm::vec3[numVertices];
 	glm::vec2* texCoords = new glm::vec2[numVertices];
 	glm::vec3* normals = new glm::vec3[numVertices];
@@ -82,7 +87,7 @@ void BlockVAOLoader::MakeBlockVAO(GLuint& vao, GLuint* vbo_array, GLuint& ebo)
 	//world
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_array[WORLD_VERTEX_BUFFER]);
 	glBufferData(GL_ARRAY_BUFFER, MAX_BLOCKS_RENDERING * 3 * sizeof(float), nullptr, GL_STREAM_DRAW);
-	glVertexAttribPointer(WORLD_VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), 0);
+	glVertexAttribPointer(WORLD_VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	glVertexAttribDivisor(WORLD_VERTEX_BUFFER, 1);
 
 	//ebo, indices
@@ -99,5 +104,138 @@ void BlockVAOLoader::MakeBlockVAO(GLuint& vao, GLuint* vbo_array, GLuint& ebo)
 	delete positions;
 	delete texCoords;
 }
+
+void BlockVAOLoader::make_vao_UP(GLuint& vao, GLuint* vbo_array)
+{
+	Vertex vertices[] = {
+		Vertex(glm::vec3(0, 1, 1), glm::vec2(0.0, 1.0), glm::vec3(0,1,0.0)),
+		Vertex(glm::vec3(0, 1, 0), glm::vec2(1.0, 1.0), glm::vec3(0,1,0.0)),
+		Vertex(glm::vec3(1, 1, 1), glm::vec2(1.0, 0.0), glm::vec3(0,1,0.0)),
+		Vertex(glm::vec3(1, 1, 0), glm::vec2(0.0, 0.0), glm::vec3(0,1,0.0))
+	};
+
+	int numVertices = sizeof(vertices) / sizeof(vertices[0]);
+
+	load_vao222(vao, vbo_array, vertices, numVertices);
+}
+
+void BlockVAOLoader::make_vao_DOWN(GLuint& vao, GLuint* vbo_array)
+{
+	Vertex vertices[] = {
+		Vertex(glm::vec3(1, 0, 1), glm::vec2(0.0, 1.0), glm::vec3(0,-1,0.0)),
+		Vertex(glm::vec3(1, 0, 0), glm::vec2(1.0, 1.0), glm::vec3(0,-1,0.0)),
+		Vertex(glm::vec3(0, 0, 1), glm::vec2(1.0, 0.0), glm::vec3(0,-1,0.0)),
+		Vertex(glm::vec3(0, 0, 0), glm::vec2(0.0, 0.0), glm::vec3(0,-1,0.0))
+	};
+
+	int numVertices = sizeof(vertices) / sizeof(vertices[0]);
+
+	load_vao222(vao, vbo_array, vertices, numVertices);
+}
+
+void BlockVAOLoader::make_vao_NORTH(GLuint& vao, GLuint* vbo_array)
+{
+	Vertex vertices[] = {
+		Vertex(glm::vec3(1, 1, 1), glm::vec2(1.0, 0.0), glm::vec3(0,0,1)),
+		Vertex(glm::vec3(1, 0, 1), glm::vec2(0.0, 0.0), glm::vec3(0,0,1)),
+		Vertex(glm::vec3(0, 1, 1), glm::vec2(0.0, 1.0), glm::vec3(0,0,1)),
+		Vertex(glm::vec3(0, 0, 1), glm::vec2(1.0, 1.0), glm::vec3(0,0,1))
+	};
+
+	int numVertices = sizeof(vertices) / sizeof(vertices[0]);
+
+	load_vao222(vao, vbo_array, vertices, numVertices);
+}
+
+void BlockVAOLoader::make_vao_SOUTH(GLuint& vao, GLuint* vbo_array)
+{
+	Vertex vertices[] = {
+		Vertex(glm::vec3(0, 1, 0), glm::vec2(1.0, 0.0), glm::vec3(0,0,-1)),
+		Vertex(glm::vec3(0, 0, 0), glm::vec2(0.0, 0.0), glm::vec3(0,0,-1)),
+		Vertex(glm::vec3(1, 1, 0), glm::vec2(0.0, 1.0), glm::vec3(0,0,-1)),
+		Vertex(glm::vec3(1, 0, 0), glm::vec2(1.0, 1.0), glm::vec3(0,0,-1))
+	};
+
+	int numVertices = sizeof(vertices) / sizeof(vertices[0]);
+
+	load_vao222(vao, vbo_array, vertices, numVertices);
+}
+
+void BlockVAOLoader::make_vao_EAST(GLuint& vao, GLuint* vbo_array)
+{
+	Vertex vertices[] = {
+		Vertex(glm::vec3(1, 1, 0), glm::vec2(1.0, 0.0), glm::vec3(1,0.0,0.0)),
+		Vertex(glm::vec3(1, 0, 0), glm::vec2(0.0, 0.0), glm::vec3(1,0.0,0.0)),
+		Vertex(glm::vec3(1, 1, 1), glm::vec2(0.0, 1.0), glm::vec3(1,0.0,0.0)),
+		Vertex(glm::vec3(1, 0, 1), glm::vec2(1.0, 1.0), glm::vec3(1,0.0,0.0))
+	};
+
+	int numVertices = sizeof(vertices) / sizeof(vertices[0]);
+
+	load_vao222(vao, vbo_array, vertices, numVertices);
+}
+
+void BlockVAOLoader::make_vao_WEST(GLuint& vao, GLuint* vbo_array)
+{
+	Vertex vertices[] = {
+		Vertex(glm::vec3(0, 1, 1), glm::vec2(0.0, 1.0), glm::vec3(-1,0.0,0.0)),
+		Vertex(glm::vec3(0, 0, 1), glm::vec2(1.0, 1.0), glm::vec3(-1,0.0,0.0)),
+		Vertex(glm::vec3(0, 1, 0), glm::vec2(1.0, 0.0), glm::vec3(-1,0.0,0.0)),
+		Vertex(glm::vec3(0, 0, 0), glm::vec2(0.0, 0.0), glm::vec3(-1,0.0,0.0))
+	};
+
+	int numVertices = sizeof(vertices) / sizeof(vertices[0]);
+
+	load_vao222(vao, vbo_array, vertices, numVertices);
+}
+
+void BlockVAOLoader::load_vao222(GLuint& vao, GLuint* vbo_array, Vertex* vertices, int numVertices)
+{
+	glm::vec3* positions = new glm::vec3[numVertices];
+	glm::vec2* texCoords = new glm::vec2[numVertices];
+	glm::vec3* normals = new glm::vec3[numVertices];
+
+	for (unsigned int i = 0; i != numVertices; i++) {
+		positions[i] = *(vertices[i].GetPos());
+		texCoords[i] = *(vertices[i].GetTexCoord());
+		normals[i] = *(vertices[i].GetNormal());
+	}
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	//vbo
+	glGenBuffers(NUM_BUFFERS, vbo_array);
+	//position
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_array[POSITION_VERTEX_BUFFER]);
+	glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(positions[0]), positions, GL_STATIC_DRAW);
+	glVertexAttribPointer(POSITION_VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	//texcoords
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_array[TEXCOORDS_VERTEX_BUFFER]);
+	glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(texCoords[0]), texCoords, GL_STATIC_DRAW);
+	glVertexAttribPointer(TEXCOORDS_VERTEX_BUFFER, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	//normals
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_array[NORMAL_VERTEX_BUFFER]);
+	glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(normals[0]), normals, GL_STATIC_DRAW);
+	glVertexAttribPointer(NORMAL_VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	//world
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_array[WORLD_VERTEX_BUFFER]);
+	glBufferData(GL_ARRAY_BUFFER, MAX_BLOCKS_RENDERING * 3 * sizeof(float), nullptr, GL_STREAM_DRAW);
+	glVertexAttribPointer(WORLD_VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glVertexAttribDivisor(WORLD_VERTEX_BUFFER, 1);
+
+	//end
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0);
+
+	delete normals;
+	delete positions;
+	delete texCoords;
+}
+
 
 BlockVAOLoader::~BlockVAOLoader() {}
