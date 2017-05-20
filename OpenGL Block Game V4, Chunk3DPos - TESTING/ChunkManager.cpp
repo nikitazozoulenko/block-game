@@ -179,7 +179,10 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 
 void ChunkManager::loop()
 {
-	std::vector<Chunk3DPos> vector_create_chunk;
+	Chunk3DPos* pDataArray[MAX_CHUNK_THREADS];
+	DWORD   dwThreadIdArray[MAX_CHUNK_THREADS];
+	HANDLE  hThreadArray[MAX_CHUNK_THREADS];
+	int i = 0;
 
 	int player_x = camera.get_pos().x / X_CHUNK_SIZE;
 	if (camera.get_pos().x < 0)
@@ -213,159 +216,75 @@ void ChunkManager::loop()
 				auto search = chunkMap.find(Chunk3DPos(n, m, k));
 				if (search != chunkMap.end())
 				{
-					//std::cout << "Found chunk " << search->first.x << " " << search->first.y << " " << search->first.z << "       " << search->second << '\n';
+					std::cout << "Found chunk " << search->first.x << " " << search->first.y << " " << search->first.z << "       " << search->second << '\n';
 				}
 				else
 				{
-					//std::cout << "Not found, creating chunk\n";
+					std::cout << "Not found, creating chunk\n";
+					pDataArray[i] = (Chunk3DPos*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY,
+						sizeof(Chunk3DPos));
+
+					if (pDataArray[i] == NULL)
+					{
+						// If the array allocation fails, the system is out of memory
+						// so there is no point in trying to print an error message.
+						// Just terminate execution.
+						ExitProcess(2);
+					}
+
+					pDataArray[i]->x = n;
+					pDataArray[i]->y = m;
+					pDataArray[i]->z = k;
 
 
-					vector_create_chunk.push_back(Chunk3DPos(n, m, k));
-					//create_chunk(n, m, k);
+					// Create the thread to begin execution on its own.
+
+					hThreadArray[i] = CreateThread(
+						NULL,                   // default security attributes
+						0,                      // use default stack size  
+						create_chunk_thread_func,       // thread function name
+						pDataArray[i],          // argument to thread function 
+						0,                      // use default creation flags 
+						&dwThreadIdArray[i]);   // returns the thread identifier 
+
+
+												// Check the return value for success.
+												// If CreateThread fails, terminate execution. 
+												// This will automatically clean up threads and memory. 
+
+					if (hThreadArray[i] == NULL)
+					{
+						ErrorHandler(TEXT("CreateThread"));
+						ExitProcess(3);
+					}
+					
+					++i;
+
+					if (i == MAX_CHUNK_THREADS)
+					{
+						goto endloop;
+					}
 				}
 
-				//std::cout << "Player: " << player_x << " " << player_y << " " << player_z << "\n";
+				///std::cout << "Player: " << player_x << " " << player_y << " " << player_z << "\n";
 			}
 		}
 	}
+	endloop:
 
-	int chunk_amount = vector_create_chunk.size();
-	int iterations = 0;
+	// Wait until all threads have terminated.
 
-	while (chunk_amount - iterations*MAX_CHUNK_THREADS > MAX_CHUNK_THREADS)
-	{
-
-		Chunk3DPos* pDataArray[MAX_CHUNK_THREADS];
-		DWORD   dwThreadIdArray[MAX_CHUNK_THREADS];
-		HANDLE  hThreadArray[MAX_CHUNK_THREADS];
-
-		// Create MAX_THREADS worker threads.
-
-		for (int i = 0; i<MAX_CHUNK_THREADS; i++)
-		{
-			// Allocate memory for thread data.
-
-			pDataArray[i] = (Chunk3DPos*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY,
-				sizeof(Chunk3DPos));
-
-			if (pDataArray[i] == NULL)
-			{
-				// If the array allocation fails, the system is out of memory
-				// so there is no point in trying to print an error message.
-				// Just terminate execution.
-				ExitProcess(2);
-			}
-
-			pDataArray[i]->x = (*(vector_create_chunk.begin() + i + iterations*MAX_CHUNK_THREADS)).x;
-			pDataArray[i]->y = (*(vector_create_chunk.begin() + i + iterations*MAX_CHUNK_THREADS)).y;
-			pDataArray[i]->z = (*(vector_create_chunk.begin() + i + iterations*MAX_CHUNK_THREADS)).z;
-
-
-			// Create the thread to begin execution on its own.
-
-			hThreadArray[i] = CreateThread(
-				NULL,                   // default security attributes
-				0,                      // use default stack size  
-				create_chunk_thread_func,       // thread function name
-				pDataArray[i],          // argument to thread function 
-				0,                      // use default creation flags 
-				&dwThreadIdArray[i]);   // returns the thread identifier 
-
-
-										// Check the return value for success.
-										// If CreateThread fails, terminate execution. 
-										// This will automatically clean up threads and memory. 
-
-			if (hThreadArray[i] == NULL)
-			{
-				ErrorHandler(TEXT("CreateThread"));
-				ExitProcess(3);
-			}
-		} // End of main thread creation loop.
-
-		  // Wait until all threads have terminated.
-
-		WaitForMultipleObjects(MAX_CHUNK_THREADS, hThreadArray, TRUE, INFINITE);
-
-		// Close all thread handles and free memory allocations.
-
-		for (int i = 0; i<MAX_CHUNK_THREADS; i++)
-		{
-			CloseHandle(hThreadArray[i]);
-			if (pDataArray[i] != NULL)
-			{
-				HeapFree(GetProcessHeap(), 0, pDataArray[i]);
-				pDataArray[i] = NULL;    // Ensure address is not reused.
-			}
-		}
-		++iterations;
-	}//end while loop
-
-	
-
-
-
-	Chunk3DPos* pDataArray[MAX_CHUNK_THREADS];
-	DWORD   dwThreadIdArray[MAX_CHUNK_THREADS];
-	HANDLE  hThreadArray[MAX_CHUNK_THREADS];
-
-	// Create MAX_THREADS worker threads.
-
-	for (int i = 0; i<chunk_amount - iterations*MAX_CHUNK_THREADS; i++)
-	{
-		// Allocate memory for thread data.
-
-		pDataArray[i] = (Chunk3DPos*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY,
-			sizeof(Chunk3DPos));
-
-		if (pDataArray[i] == NULL)
-		{
-			// If the array allocation fails, the system is out of memory
-			// so there is no point in trying to print an error message.
-			// Just terminate execution.
-			ExitProcess(2);
-		}
-
-		pDataArray[i]->x = (*(vector_create_chunk.begin() + i + iterations*MAX_CHUNK_THREADS)).x;
-		pDataArray[i]->y = (*(vector_create_chunk.begin() + i + iterations*MAX_CHUNK_THREADS)).y;
-		pDataArray[i]->z = (*(vector_create_chunk.begin() + i + iterations*MAX_CHUNK_THREADS)).z;
-
-
-		// Create the thread to begin execution on its own.
-
-		hThreadArray[i] = CreateThread(
-			NULL,                   // default security attributes
-			0,                      // use default stack size  
-			create_chunk_thread_func,       // thread function name
-			pDataArray[i],          // argument to thread function 
-			0,                      // use default creation flags 
-			&dwThreadIdArray[i]);   // returns the thread identifier 
-
-
-									// Check the return value for success.
-									// If CreateThread fails, terminate execution. 
-									// This will automatically clean up threads and memory. 
-
-		if (hThreadArray[i] == NULL)
-		{
-			ErrorHandler(TEXT("CreateThread"));
-			ExitProcess(3);
-		}
-	} // End of main thread creation loop.
-
-	  // Wait until all threads have terminated.
-
-	WaitForMultipleObjects(chunk_amount - iterations*MAX_CHUNK_THREADS, hThreadArray, TRUE, INFINITE);
+	WaitForMultipleObjects(i, hThreadArray, TRUE, INFINITE);
 
 	// Close all thread handles and free memory allocations.
 
-	for (int i = 0; i<chunk_amount - iterations*MAX_CHUNK_THREADS; i++)
+	for (int j = 0; j<i; j++)
 	{
-		CloseHandle(hThreadArray[i]);
-		if (pDataArray[i] != NULL)
+		CloseHandle(hThreadArray[j]);
+		if (pDataArray[j] != NULL)
 		{
-			HeapFree(GetProcessHeap(), 0, pDataArray[i]);
-			pDataArray[i] = NULL;    // Ensure address is not reused.
+			HeapFree(GetProcessHeap(), 0, pDataArray[j]);
+			pDataArray[j] = NULL;    // Ensure address is not reused.
 		}
 	}
 }
