@@ -79,10 +79,10 @@ void BlockRenderer::render(const ChunkMap& chunkMap, Camera& camera)
 			}
 		}
 	}
-	for (auto pair : vector_needs_deleting)
+	/*for (auto pair : vector_needs_deleting)
 	{
 		chunkManager.unload_chunk(pair.second, pair.first);
-	}
+	}*/
 }
 
 
