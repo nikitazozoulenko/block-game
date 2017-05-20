@@ -7,6 +7,9 @@
 
 bool world_needs_updating = true;
 
+extern ChunkManager chunkManager;
+extern unsigned RENDER_DISTANCE_CHUNK;
+
 BlockRenderer::BlockRenderer(BlockShaderprogram& blockShaderprogram) : blockShaderprogram(blockShaderprogram)
 {
 	//upload projection matrix once
@@ -27,21 +30,61 @@ BlockRenderer::BlockRenderer(BlockShaderprogram& blockShaderprogram) : blockShad
 	loader.make_vao_WEST(block_vao[Chunk::Block::WEST], block_vbo[Chunk::Block::WEST]);
 }
 
-void BlockRenderer::render(const ChunkMap& chunkMap)
+void BlockRenderer::render(const ChunkMap& chunkMap, Camera& camera)
 {
-	for (const ChunkAndPosPair& chunkAndPosPair : chunkMap) {
-		for (int i = 0; i != 6; ++i)
+	std::vector<ChunkAndPosPair> vector_needs_deleting;
+
+	for (const ChunkAndPosPair& chunkAndPosPair : chunkMap)
+	{
+		int player_x = camera.get_pos().x / X_CHUNK_SIZE;
+		if (camera.get_pos().x < 0)
 		{
-			BindVAO(i);
-			BindTexture(2);
-			prepare_blocks(chunkAndPosPair, i);
-			glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, chunkAndPosPair.second->countRenderedBlocks[i]);
-			UnbindTexture(2);
-			UnbindVAO();
+			--player_x;
+		}
+		int player_y = camera.get_pos().y / X_CHUNK_SIZE;
+		if (camera.get_pos().y < 0)
+		{
+			--player_y;
+		}
+		int player_z = camera.get_pos().z / X_CHUNK_SIZE;
+		if (camera.get_pos().z < 0)
+		{
+			--player_z;
 		}
 
+		int lower_bound_x = player_x - RENDER_DISTANCE_CHUNK;
+		int higher_bound_x = player_x + RENDER_DISTANCE_CHUNK;
+		int lower_bound_y = player_y - RENDER_DISTANCE_CHUNK;
+		int higher_bound_y = player_y + RENDER_DISTANCE_CHUNK;
+		int lower_bound_z = player_z - RENDER_DISTANCE_CHUNK;
+		int higher_bound_z = player_z + RENDER_DISTANCE_CHUNK;
+
+		const Chunk3DPos pos = chunkAndPosPair.first;
+		Chunk* chunk = chunkAndPosPair.second;
+
+		if ((pos.x<lower_bound_x || pos.x>higher_bound_x) || (pos.y<lower_bound_y || pos.y>higher_bound_y) || (pos.z<lower_bound_z || pos.z>higher_bound_z))
+		{
+			vector_needs_deleting.push_back(chunkAndPosPair);
+		}
+		else
+		{
+			for (int i = 0; i != 6; ++i)
+			{
+				BindVAO(i);
+				BindTexture(2);
+				prepare_blocks(chunkAndPosPair, i);
+				glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, chunk->countRenderedBlocks[i]);
+				UnbindTexture(2);
+				UnbindVAO();
+			}
+		}
+	}
+	for (auto pair : vector_needs_deleting)
+	{
+		chunkManager.unload_chunk(pair.second, pair.first);
 	}
 }
+
 
 void BlockRenderer::BindVAO(int i)
 {
@@ -85,51 +128,11 @@ void BlockRenderer::UnbindTexture(const GLuint texID)
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-//void BlockRenderer::PrepareBlocks(const ChunkAndPosPair& const pair_chunk_and_pos, int i)
-//{
-//	const Chunk3DPos chunk_pos = pair_chunk_and_pos.first;
-//	Chunk* chunk = pair_chunk_and_pos.second;
-//
-//	if (chunk->needsUpdating)
-//	{
-//		std::vector<glm::ivec3> world_positions_vector;
-//		for (int x = 0; x != Y_CHUNK_SIZE; ++x)
-//		{
-//			for (int y = 0; y != X_CHUNK_SIZE; ++y)
-//			{
-//				for (int z = 0; z != Z_CHUNK_SIZE; ++z)
-//				{
-//					uint16_t& block = chunk->blockArray[x + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE];
-//					if (block)
-//					{
-//						if ((block >> 10) ^ 0x3f)
-//						{
-//							world_positions_vector.push_back(glm::ivec3(chunk_pos.x*X_CHUNK_SIZE + x, chunk_pos.y*Y_CHUNK_SIZE + y, chunk_pos.z*Z_CHUNK_SIZE + z));
-//						}
-//					}
-//				}
-//			}
-//		}
-//		chunk->countRenderedBlocks = world_positions_vector.size();
-//		chunk->worldPositionArray = new glm::ivec3[chunk->countRenderedBlocks];
-//		for (int j = 0; j != chunk->countRenderedBlocks; ++j)
-//		{
-//			chunk->worldPositionArray[j] = world_positions_vector[j];
-//		}
-//		chunk->needsUpdating = false;
-//	}
-//
-//	glBindBuffer(GL_ARRAY_BUFFER, block_vbo[i][WORLD_VERTEX_BUFFER]);
-//	glBufferData(GL_ARRAY_BUFFER, chunk->countRenderedBlocks * 3 * sizeof(int), chunk->worldPositionArray, GL_STREAM_DRAW);
-//	//glBufferSubData(GL_ARRAY_BUFFER, block_vbo[i][WORLD_VERTEX_BUFFER], 0, chunk->worldPositionArray[i]);
-//	glBindBuffer(GL_ARRAY_BUFFER, 0);
-//}
-
 void BlockRenderer::prepare_blocks(const ChunkAndPosPair& const pair_chunk_and_pos, unsigned int i)
 {
 	const Chunk3DPos chunk_pos = pair_chunk_and_pos.first;
 	Chunk* chunk = pair_chunk_and_pos.second;
-	
+
 	if (chunk->needsUpdating[i])
 	{
 		std::vector<glm::ivec3> world_positions_vector;
@@ -142,7 +145,7 @@ void BlockRenderer::prepare_blocks(const ChunkAndPosPair& const pair_chunk_and_p
 					uint16_t block = chunk->blockArray[x + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE];
 					if (block)
 					{
-						if(!((block >> (15-i)) & 1))        //(((block << 4) >> 15) == 0) //                         OLD     --->>>>   ((block >> 10) ^ bitmask[i])
+						if (!((block >> (15 - i)) & 1))        //(((block << 4) >> 15) == 0) //                         OLD     --->>>>   ((block >> 10) ^ bitmask[i])
 						{
 							world_positions_vector.push_back(glm::ivec3(chunk_pos.x*X_CHUNK_SIZE + x, chunk_pos.y*Y_CHUNK_SIZE + y, chunk_pos.z*Z_CHUNK_SIZE + z));
 						}

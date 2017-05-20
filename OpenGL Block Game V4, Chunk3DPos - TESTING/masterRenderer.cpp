@@ -26,7 +26,7 @@ void MasterRenderer::render(Camera& camera, Light& light, ChunkMap& chunkMap)
 	blockShaderprogram.Bind();
 	blockShaderprogram.UpdateSunPos(light.GetPos());
 	blockShaderprogram.UpdateViewMatrix(CreateViewMatrix(camera));
-	blockRenderer.render(chunkMap);
+	blockRenderer.render(chunkMap, camera);
 	blockShaderprogram.Unbind();
 
 

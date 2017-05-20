@@ -11,7 +11,7 @@ public:
 	BlockRenderer(BlockShaderprogram& blockShaderprogram);
 	virtual ~BlockRenderer();
 
-	void render(const ChunkMap& chunkMap);
+	void render(const ChunkMap& chunkMap, Camera& camera);
 
 private:
 	BlockShaderprogram& blockShaderprogram;

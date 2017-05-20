@@ -169,6 +169,10 @@ Chunk* WorldGenerator::GenChunkAtPosition(int chunkX, int chunkY, int chunkZ)
 				{
 					chunk->blockArray[x + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] = 1;
 				}
+				else
+				{
+					chunk->blockArray[x + z*X_CHUNK_SIZE + y*X_CHUNK_SIZE*Z_CHUNK_SIZE] = 0;
+				}
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 #ifndef WORLD_GEN_THREE_H
 #define WORLD_GEN_THREE_H
 
-class Chunk;
+struct Chunk;
 
 #include <glm\glm.hpp>
 
