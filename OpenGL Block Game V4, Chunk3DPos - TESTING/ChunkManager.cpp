@@ -7,7 +7,7 @@
 #include <strsafe.h>
 
 unsigned RENDER_DISTANCE_CHUNK = 3;
-constexpr int MAX_CHUNK_THREADS = 2;
+constexpr int MAX_CHUNK_THREADS = 3;
 extern ChunkManager chunkManager;
 extern void ErrorHandler(LPTSTR lpszFunction);
 DWORD WINAPI create_chunk_thread_func(void* ptr);
