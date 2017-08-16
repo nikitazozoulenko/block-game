@@ -4,7 +4,7 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
-#include "model.h"
+#include "vertex.h"
 
 class BlockVAOLoader
 {

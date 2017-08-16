@@ -12,12 +12,11 @@
 #include <stdlib.h>
 #include <cstdint>
 
+//Include my own headers
 #include "displaywindow.h"
-#include "model.h"
 #include "texIDLoader.h"
 #include "camera.h"
 #include "masterRenderer.h"
-#include "modelLoader.h"
 #include "math.h"
 #include "ChunkManager.h"
 
@@ -37,8 +36,6 @@ HANDLE  hThreadArray[MAX_THREADS];
 
 Displaywindow* p_displaywindow;
 
-//static std::vector<GLuint> vector_block_texIDs;
-
 Camera player_camera(glm::vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f);
 double last_xpos, last_ypos;
 
@@ -50,7 +47,7 @@ int main()
 	glfwInit();
 
 	//create GLFWwindow and make context current
-	Displaywindow displaywindow = Displaywindow(800, 600, "title", nullptr, nullptr);
+	Displaywindow displaywindow = Displaywindow(1600, 900, "title", nullptr, nullptr);
 	p_displaywindow = &displaywindow;
 
 	//initialize glew

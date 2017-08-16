@@ -4,8 +4,7 @@
 MasterRenderer::MasterRenderer() :
 	blockShaderprogram(BlockShaderprogram(std::string("blockVertexShader.txt"), std::string("blockFragmentShader.txt"))),
 	entityShaderprogram(EntityShaderprogram(std::string("entityVertexShader.txt"), std::string("entityFragmentShader.txt"))),
-	blockRenderer(blockShaderprogram),
-	entityRenderer(entityShaderprogram)
+	blockRenderer(blockShaderprogram)
 {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);

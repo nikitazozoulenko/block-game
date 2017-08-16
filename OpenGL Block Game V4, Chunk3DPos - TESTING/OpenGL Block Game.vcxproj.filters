@@ -58,12 +58,6 @@
     <Filter Include="Header Files\Math">
       <UniqueIdentifier>{8280f4f0-1a70-46b6-ada3-dfe4f2a55b40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Old">
-      <UniqueIdentifier>{dd2a4ae1-6999-43b4-8916-cea5486f6525}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Old">
-      <UniqueIdentifier>{3af10c84-de91-4be9-999a-6d91d2b9f575}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="displaywindow.cpp">
@@ -108,28 +102,19 @@
     <ClCompile Include="ChunkManager.cpp">
       <Filter>Source Files\World Gen</Filter>
     </ClCompile>
-    <ClCompile Include="modelLoader.cpp">
-      <Filter>Source Files\Old</Filter>
-    </ClCompile>
-    <ClCompile Include="entityRenderer.cpp">
-      <Filter>Source Files\Old</Filter>
-    </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>Source Files\Old</Filter>
-    </ClCompile>
-    <ClCompile Include="world_gen_0.cpp">
-      <Filter>Source Files\Old</Filter>
-    </ClCompile>
-    <ClCompile Include="world_gen_1.cpp">
-      <Filter>Source Files\Old</Filter>
-    </ClCompile>
-    <ClCompile Include="world_gen_2.cpp">
-      <Filter>Source Files\Old</Filter>
-    </ClCompile>
     <ClCompile Include="Chunk3DPos.cpp">
       <Filter>Source Files\World Gen</Filter>
     </ClCompile>
     <ClCompile Include="Chunk.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="world_gen_0.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="world_gen_1.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="world_gen_2.cpp">
       <Filter>Source Files\World Gen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,44 +161,23 @@
     <ClInclude Include="ChunkManager.h">
       <Filter>Header Files\World Gen</Filter>
     </ClInclude>
-    <ClInclude Include="chunkV0.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="chunkV1.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="vector2D.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="world_gen_0.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="world_gen_1.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="world_gen_2.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="entityRenderer.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="modelLoader.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="immovableEntity.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
-    <ClInclude Include="model.h">
-      <Filter>Header Files\Old</Filter>
-    </ClInclude>
     <ClInclude Include="Chunk.h">
       <Filter>Header Files\World Gen</Filter>
     </ClInclude>
     <ClInclude Include="Chunk3DPos.h">
       <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="world_gen_0.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="world_gen_1.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="world_gen_2.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex.h">
+      <Filter>Header Files\Game Engine\meshes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
