@@ -1,5 +1,5 @@
-#ifndef CHUNKMANAGER_H
-#define CHUNKMANAGER_H
+#ifndef CHUNKMANAGER_BLOCK_GAME_H
+#define CHUNKMANAGER_BLOCK_GAME_H
 
 class Camera;
 
@@ -9,6 +9,10 @@ class Camera;
 #include "Chunk3DPos.h"
 #include "world_gen_3.h"
 #include "camera.h"
+
+#include <windows.h>
+#include <tchar.h>
+#include <strsafe.h>
 
 typedef std::map<const Chunk3DPos, Chunk*> ChunkMap;
 typedef std::pair<const Chunk3DPos, Chunk*> ChunkAndPosPair;
@@ -31,4 +35,11 @@ private:
 	
 };
 
-#endif // !CHUNKMANAGER_H
+struct PackageChunkManagerXYZ
+{
+	ChunkManager* ptr_chunk_manager;
+	int x;
+	int y;
+	int z;
+};
+#endif // !CHUNKMANAGER_BLOCK_GAME_H

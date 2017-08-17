@@ -23,9 +23,9 @@
     <ClCompile Include="blockShaderprogram.cpp" />
     <ClCompile Include="blockVAOLoader.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Chunk3DPos.cpp" />
     <ClCompile Include="ChunkManager.cpp" />
+    <ClCompile Include="eventHandler.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="masterRenderer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -48,6 +48,8 @@
     <ClInclude Include="ChunkManager.h" />
     <ClInclude Include="displaywindow.h" />
     <ClInclude Include="Chunk.h" />
+    <ClInclude Include="event.h" />
+    <ClInclude Include="eventHandler.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="masterRenderer.h" />
     <ClInclude Include="math.h" />
@@ -154,10 +156,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\opengl-wrappers\glew\include;E:\opengl-wrappers\glfw\include;E:\opengl-wrappers\glm;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>E:\opengl-wrappers\glfw\lib-vc2015;E:\opengl-wrappers\glew\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

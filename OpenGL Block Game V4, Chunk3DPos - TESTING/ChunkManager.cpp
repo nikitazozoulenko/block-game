@@ -8,7 +8,6 @@
 
 unsigned RENDER_DISTANCE_CHUNK = 3;
 constexpr int MAX_CHUNK_THREADS = 3;
-extern ChunkManager chunkManager;
 extern void ErrorHandler(LPTSTR lpszFunction);
 DWORD WINAPI create_chunk_thread_func(void* ptr);
 
@@ -179,7 +178,7 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Chunk3DPos& const posi
 
 void ChunkManager::loop()
 {
-	Chunk3DPos* pDataArray[MAX_CHUNK_THREADS];
+	PackageChunkManagerXYZ* pDataArray[MAX_CHUNK_THREADS];
 	DWORD   dwThreadIdArray[MAX_CHUNK_THREADS];
 	HANDLE  hThreadArray[MAX_CHUNK_THREADS];
 	int i = 0;
@@ -221,8 +220,7 @@ void ChunkManager::loop()
 				else
 				{
 					//std::cout << "Not found, creating chunk\n";
-					pDataArray[i] = (Chunk3DPos*)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY,
-						sizeof(Chunk3DPos));
+					pDataArray[i] = (PackageChunkManagerXYZ*) HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, sizeof(PackageChunkManagerXYZ));
 
 					if (pDataArray[i] == NULL)
 					{
@@ -231,7 +229,7 @@ void ChunkManager::loop()
 						// Just terminate execution.
 						ExitProcess(2);
 					}
-
+					pDataArray[i]->ptr_chunk_manager = this;
 					pDataArray[i]->x = n;
 					pDataArray[i]->y = m;
 					pDataArray[i]->z = k;
@@ -291,8 +289,8 @@ void ChunkManager::loop()
 
 DWORD WINAPI create_chunk_thread_func(void* ptr)
 {
-	Chunk3DPos* pos = (Chunk3DPos*)ptr;
-	chunkManager.create_chunk(pos->x, pos->y, pos->z);
+	PackageChunkManagerXYZ* pointer = (PackageChunkManagerXYZ*)ptr;
+	pointer->ptr_chunk_manager->create_chunk(pointer->x, pointer->y, pointer->z);
 
 	return 0;
 }

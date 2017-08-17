@@ -58,6 +58,12 @@
     <Filter Include="Header Files\Math">
       <UniqueIdentifier>{8280f4f0-1a70-46b6-ada3-dfe4f2a55b40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game Engine\Managers">
+      <UniqueIdentifier>{375d41d7-ca6a-404b-a483-b88c8dba8fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Engine\Managers">
+      <UniqueIdentifier>{7b940df4-035f-4b91-9590-8c5193000846}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="displaywindow.cpp">
@@ -99,13 +105,7 @@
     <ClCompile Include="world_gen_3.cpp">
       <Filter>Source Files\World Gen</Filter>
     </ClCompile>
-    <ClCompile Include="ChunkManager.cpp">
-      <Filter>Source Files\World Gen</Filter>
-    </ClCompile>
     <ClCompile Include="Chunk3DPos.cpp">
-      <Filter>Source Files\World Gen</Filter>
-    </ClCompile>
-    <ClCompile Include="Chunk.cpp">
       <Filter>Source Files\World Gen</Filter>
     </ClCompile>
     <ClCompile Include="world_gen_0.cpp">
@@ -116,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="world_gen_2.cpp">
       <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkManager.cpp">
+      <Filter>Source Files\Game Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="eventHandler.cpp">
+      <Filter>Source Files\Game Engine\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +164,6 @@
     <ClInclude Include="world_gen_3.h">
       <Filter>Header Files\World Gen</Filter>
     </ClInclude>
-    <ClInclude Include="ChunkManager.h">
-      <Filter>Header Files\World Gen</Filter>
-    </ClInclude>
     <ClInclude Include="Chunk.h">
       <Filter>Header Files\World Gen</Filter>
     </ClInclude>
@@ -178,6 +181,15 @@
     </ClInclude>
     <ClInclude Include="vertex.h">
       <Filter>Header Files\Game Engine\meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkManager.h">
+      <Filter>Header Files\Game Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="eventHandler.h">
+      <Filter>Header Files\Game Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>Header Files\Game Engine\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
