@@ -19,6 +19,7 @@
 #include "masterRenderer.h"
 #include "math.h"
 #include "ChunkManager.h"
+#include "player.h"
 
 #include <windows.h>
 #include <tchar.h>
@@ -28,16 +29,14 @@ DWORD WINAPI chunk_manager_thread_func(void* ptr);
 void ErrorHandler(LPTSTR lpszFunction);
 void create_chunk_manager_thread(ChunkManager* ptr_chunk_manager);
 void close_chunk_manager_thread();
+void check_keyboard_input(Displaywindow &displaywindow, Player &player);
 
 DWORD   threadID_chunk_manager;
 HANDLE  handle_chunk_manager;
 
 Displaywindow* p_displaywindow;
 
-Camera player_camera(glm::vec3(0.0f, 0.0f, 0.0f), 0.0f, 0.0f, 0.0f);
 double last_xpos, last_ypos;
-
-
 
 int main()
 {
@@ -52,9 +51,10 @@ int main()
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-
+	Player player(glm::vec3(0, 0, 0), 0, 0, 0);
+	std::cout << player.get_camera().get_pos().x << std::endl;
 	//Chunkmanager
-	ChunkManager chunk_manager(player_camera);
+	ChunkManager chunk_manager(player.get_camera());
 	create_chunk_manager_thread(&chunk_manager);
 
 	//Renderer
@@ -72,51 +72,56 @@ int main()
 
 	while (!displaywindow.ShouldClose()) 
 	{
-		//KEYBOARD INPUT BEGIN
-		if (glfwGetKey(displaywindow.window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		{
-			glfwSetWindowShouldClose(displaywindow.window, GL_TRUE);
-		}
-
-		if (glfwGetKey(displaywindow.window, GLFW_KEY_W) == GLFW_PRESS)
-		{
-			player_camera.move_forward(-0.1f);
-		}
-
-		if (glfwGetKey(displaywindow.window, GLFW_KEY_S) == GLFW_PRESS)
-		{
-			player_camera.move_forward(0.1f);
-		}
-
-		if (glfwGetKey(displaywindow.window, GLFW_KEY_A) == GLFW_PRESS)
-		{
-			player_camera.move_sideways(-0.1f);
-		}
-
-		if (glfwGetKey(displaywindow.window, GLFW_KEY_D) == GLFW_PRESS)
-		{
-			player_camera.move_sideways(0.1f);
-		}
-
-		if (glfwGetKey(displaywindow.window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		{
-			player_camera.move_up(0.1f);
-		}
-
-		if (glfwGetKey(displaywindow.window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
-		{
-			player_camera.move_up(-0.1f);
-		}
-		//KEYBOARD INPUT END
 
 		displaywindow.PollEvents();
+		check_keyboard_input(displaywindow, player);
 
-		masterRenderer.render(player_camera, sun, chunk_manager.GetChunkMap());
+		masterRenderer.render(player.get_camera(), sun, chunk_manager.GetChunkMap());
 
 		displaywindow.SwapBuffers();
 	}
 	close_chunk_manager_thread();
 	return 0;
+}
+
+void check_keyboard_input(Displaywindow &displaywindow, Player &player)
+{
+	//KEYBOARD INPUT BEGIN
+	if (glfwGetKey(displaywindow.window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(displaywindow.window, GL_TRUE);
+	}
+
+	if (glfwGetKey(displaywindow.window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		player.move_forward(-0.1f);
+	}
+
+	if (glfwGetKey(displaywindow.window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		player.move_forward(0.1f);
+	}
+
+	if (glfwGetKey(displaywindow.window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		player.move_sideways(-0.1f);
+	}
+
+	if (glfwGetKey(displaywindow.window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		player.move_sideways(0.1f);
+	}
+
+	if (glfwGetKey(displaywindow.window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		player.move_up(0.1f);
+	}
+
+	if (glfwGetKey(displaywindow.window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+	{
+		player.move_up(-0.1f);
+	}
+	//KEYBOARD INPUT END
 }
 
 DWORD WINAPI chunk_manager_thread_func(void* ptr)

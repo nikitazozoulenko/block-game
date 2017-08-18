@@ -3,6 +3,7 @@
 #include "camera.h"
 
 extern Camera player_camera;
+MÅSTE HA EN EXTERN CAMERA
 
 static void cursor_callback_move(GLFWwindow* window, double xpos, double ypos)
 {

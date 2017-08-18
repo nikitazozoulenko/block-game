@@ -123,6 +123,9 @@
     <ClCompile Include="eventHandler.cpp">
       <Filter>Source Files\Game Engine\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\Game Engine\camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="displaywindow.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="event.h">
       <Filter>Header Files\Game Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files\Game Engine\camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

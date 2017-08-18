@@ -31,6 +31,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="displaywindow.cpp" />
     <ClCompile Include="entityShaderprogram.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="shaderprogram.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="texIDLoader.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="masterRenderer.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="entityShaderprogram.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="shaderprogram.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texIDLoader.h" />
