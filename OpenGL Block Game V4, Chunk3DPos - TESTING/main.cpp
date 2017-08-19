@@ -29,7 +29,7 @@
 //forward declarations
 DWORD WINAPI chunk_manager_thread_func(void* ptr);
 void ErrorHandler(LPTSTR lpszFunction);
-void create_chunk_manager_thread(ChunkManager* ptr_chunk_manager);
+void create_chunk_manager_thread();
 void close_chunk_manager_thread();
 void check_keyboard_input(Displaywindow &displaywindow, Player &player);
 
@@ -51,7 +51,6 @@ int main()
 	//init glfw
 	glfwInit();
 
-	
 	//create GLFWwindow and make context current
 	Displaywindow displaywindow = Displaywindow(1600, 900, "title", nullptr, nullptr);
 	p_displaywindow = &displaywindow;
@@ -60,11 +59,8 @@ int main()
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	game_world.test_function();
-
 	//Chunkmanager
-	ChunkManager chunk_manager(game_world.player.get_camera());
-	create_chunk_manager_thread(&chunk_manager);
+	create_chunk_manager_thread();
 
 	//Renderer
 	MasterRenderer masterRenderer;
@@ -76,8 +72,7 @@ int main()
 	const char* greenpic = "greenpixel.png";
 	GLuint greenpixel = texIDLoader.LoadTexID(greenpic);
 
-	
-
+	//Main game loop
 	while (!displaywindow.ShouldClose()) 
 	{
 
@@ -85,6 +80,13 @@ int main()
 		check_keyboard_input(displaywindow, game_world.player);
 
 		masterRenderer.render(game_world.player.get_camera(), game_world.sun, game_world.chunk_map);
+
+		std::cout << "pos" << game_world.player.get_pos().x << ", " << game_world.player.get_pos().y << ", " << game_world.player.get_pos().z << std::endl;
+		std::cout << "cam" << game_world.player.get_camera().get_pos().x << ", " << game_world.player.get_camera().get_pos().y << ", " << game_world.player.get_camera().get_pos().z << std::endl << std::endl;
+
+		std::cout << "pitch" << game_world.player.get_camera().get_pitch() << std::endl;
+		std::cout << "yaw" << game_world.player.get_camera().get_yaw() << std::endl;
+		std::cout << "roll" << game_world.player.get_camera().get_roll() << std::endl << std::endl;
 
 		displaywindow.SwapBuffers();
 	}
@@ -134,22 +136,22 @@ void check_keyboard_input(Displaywindow &displaywindow, Player &player)
 
 DWORD WINAPI chunk_manager_thread_func(void* ptr)
 {
-	ChunkManager* ptr_chunk_manager = (ChunkManager*)(ptr);
+	ChunkManager chunk_manager;
 	while (!(p_displaywindow->ShouldClose()))
 	{
-		ptr_chunk_manager->loop();
+		chunk_manager.loop();
 	}
 	return 0;
 }
 
-void create_chunk_manager_thread(ChunkManager* ptr_chunk_manager)
+void create_chunk_manager_thread()
 {
 	// Create the thread to begin execution on its own.
 	handle_chunk_manager = CreateThread(
 		NULL,						// default security attributes
 		0,							// use default stack size  
 		chunk_manager_thread_func,  // thread function name
-		(void*)ptr_chunk_manager,			// argument to thread function 
+		nullptr,			        // argument to thread function 
 		0,							// use default creation flags 
 		&threadID_chunk_manager);   // returns the thread identifier 
 

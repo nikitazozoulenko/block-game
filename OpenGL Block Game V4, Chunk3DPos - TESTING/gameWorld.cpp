@@ -4,8 +4,3 @@ GameWorld::GameWorld() : player(Player(glm::vec3(0, 0, 0), 0, 0, 0)), chunk_map(
 {
 	
 }
-
-void GameWorld::test_function()
-{
-
-}

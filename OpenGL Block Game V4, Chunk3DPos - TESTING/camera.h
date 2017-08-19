@@ -18,6 +18,9 @@ public:
 	inline float& get_yaw() { return yaw; }
 	inline float& get_roll() { return roll; }
 
+	inline void set_pitch(float new_pitch) { pitch = new_pitch; }
+	inline void set_yaw(float new_yaw) { yaw = new_yaw; }
+
 private:
 	glm::vec3 pos;
 	float pitch;

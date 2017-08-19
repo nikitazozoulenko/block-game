@@ -22,7 +22,6 @@ public:
 	Light sun;
 	//std::vector<Light> lights;
 
-	void test_function();
 protected:
 private:
 	//std::vector<Light> lights;

@@ -7,14 +7,16 @@
 extern double last_cursor_xpos, last_cursor_ypos;
 extern GameWorld game_world;
 
+double SENSITIVITY = 0.005;
+
 static void cursor_callback_move(GLFWwindow* window, double xpos, double ypos)
 {
-	game_world.player.get_camera().look_horizontal((xpos - last_cursor_xpos)*0.01);
-	game_world.player.get_camera().look_vertical((ypos - last_cursor_ypos)*0.01);
+	Player player = game_world.player;
+
+	game_world.player.look_horizontal(xpos - last_cursor_xpos);
+	game_world.player.look_vertical(ypos - last_cursor_ypos);
 	last_cursor_xpos = xpos;
 	last_cursor_ypos = ypos;
-
-	//TODO: MAKE PLAYER ALSO LOOK AROUND, NOT JUST THE CAMERA
 }
 
 Displaywindow::Displaywindow(const int width, const int height, const char* const title, GLFWmonitor* glfw_monitor, GLFWwindow* glfw_other_window)
@@ -34,6 +36,7 @@ Displaywindow::Displaywindow(const int width, const int height, const char* cons
 void Displaywindow::PollEvents()
 {
 	glfwPollEvents();
+	//glfwWaitEvents(); är ett annat alternativ, vet inte vad det gör
 }
 
 void Displaywindow::SwapBuffers()
