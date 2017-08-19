@@ -20,6 +20,7 @@ public:
 
 	inline void set_pitch(float new_pitch) { pitch = new_pitch; }
 	inline void set_yaw(float new_yaw) { yaw = new_yaw; }
+	inline void set_pos(glm::vec3 new_pos) { pos = new_pos; }
 
 private:
 	glm::vec3 pos;

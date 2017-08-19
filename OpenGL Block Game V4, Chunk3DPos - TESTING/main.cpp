@@ -75,18 +75,10 @@ int main()
 	//Main game loop
 	while (!displaywindow.ShouldClose()) 
 	{
-
 		displaywindow.PollEvents();
 		check_keyboard_input(displaywindow, game_world.player);
 
 		masterRenderer.render(game_world.player.get_camera(), game_world.sun, game_world.chunk_map);
-
-		std::cout << "pos" << game_world.player.get_pos().x << ", " << game_world.player.get_pos().y << ", " << game_world.player.get_pos().z << std::endl;
-		std::cout << "cam" << game_world.player.get_camera().get_pos().x << ", " << game_world.player.get_camera().get_pos().y << ", " << game_world.player.get_camera().get_pos().z << std::endl << std::endl;
-
-		std::cout << "pitch" << game_world.player.get_camera().get_pitch() << std::endl;
-		std::cout << "yaw" << game_world.player.get_camera().get_yaw() << std::endl;
-		std::cout << "roll" << game_world.player.get_camera().get_roll() << std::endl << std::endl;
 
 		displaywindow.SwapBuffers();
 	}
@@ -104,32 +96,32 @@ void check_keyboard_input(Displaywindow &displaywindow, Player &player)
 
 	if (glfwGetKey(displaywindow.window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		player.move_forward(-0.1f);
+		player.move_forward(-1);
 	}
 
 	if (glfwGetKey(displaywindow.window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		player.move_forward(0.1f);
+		player.move_forward(1);
 	}
 
 	if (glfwGetKey(displaywindow.window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		player.move_sideways(-0.1f);
+		player.move_sideways(-1);
 	}
 
 	if (glfwGetKey(displaywindow.window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		player.move_sideways(0.1f);
+		player.move_sideways(1);
 	}
 
 	if (glfwGetKey(displaywindow.window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-		player.move_up(0.1f);
+		player.move_up(1);
 	}
 
 	if (glfwGetKey(displaywindow.window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 	{
-		player.move_up(-0.1f);
+		player.move_up(-1);
 	}
 	//KEYBOARD INPUT END
 }

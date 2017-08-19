@@ -3,7 +3,7 @@
 #include <glm\gtc\constants.hpp>
 
 Player::Player(glm::vec3 pos, float pitch, float yaw, float roll) : pos(pos), pitch(pitch), yaw(yaw), roll(roll), 
-	camera(Camera(pos, pitch, yaw, roll)), camera_mode(FIRST_PERSON_CAM), movementspeed(5), sensitivity(0.005)
+	camera(Camera(pos, pitch, yaw, roll)), camera_mode(FIRST_PERSON_CAM), movementspeed(10), sensitivity(0.005)
 {
 
 }
@@ -59,9 +59,9 @@ void Player::move_forward(float ds)
 {
 	if (camera_mode == FIRST_PERSON_CAM)
 	{
-		camera.move_forward(ds * movementspeed);
 		pos.z += ds * cos(yaw) * movementspeed;
 		pos.x -= ds * sin(yaw) * movementspeed;
+		camera.set_pos(pos);
 	}
 	else if (camera_mode == THIRD_PERSON_CAM)
 	{
@@ -74,9 +74,9 @@ void Player::move_sideways(float ds)
 {
 	if (camera_mode == FIRST_PERSON_CAM)
 	{
-		camera.move_sideways(ds * movementspeed);
 		pos.x += ds * cos(yaw) * movementspeed;
 		pos.z += ds * sin(yaw) * movementspeed;
+		camera.set_pos(pos);
 	}
 	else if (camera_mode == THIRD_PERSON_CAM)
 	{
@@ -89,8 +89,8 @@ void Player::move_up(float ds)
 {
 	if (camera_mode == FIRST_PERSON_CAM)
 	{
-		camera.move_up(ds * movementspeed);
 		pos.y += ds * movementspeed;
+		camera.set_pos(pos);
 	}
 	else if (camera_mode == THIRD_PERSON_CAM)
 	{
@@ -105,7 +105,6 @@ void Player::look_horizontal(const float theta)
 	{
 		yaw += theta * sensitivity;
 		camera.set_yaw(yaw);
-		std::cout << "TEST";
 	}
 	else if (camera_mode == THIRD_PERSON_CAM)
 	{
