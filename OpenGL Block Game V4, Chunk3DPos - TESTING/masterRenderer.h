@@ -4,8 +4,9 @@
 #include "blockShaderprogram.h"
 #include "entityShaderprogram.h"
 #include "blockRenderer.h"
-#include "light.h"
-#include "ChunkManager.h"
+
+class Camera;
+class Light;
 
 class MasterRenderer {
 public:

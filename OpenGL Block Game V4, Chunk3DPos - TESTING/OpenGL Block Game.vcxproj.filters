@@ -126,6 +126,9 @@
     <ClCompile Include="player.cpp">
       <Filter>Source Files\Game Engine\camera</Filter>
     </ClCompile>
+    <ClCompile Include="gameWorld.cpp">
+      <Filter>Source Files\Game Engine\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="displaywindow.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>Header Files\Game Engine\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="gameWorld.h">
+      <Filter>Header Files\Game Engine\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,13 +1,11 @@
 #include "blockRenderer.h"
-#include "math.h"
+#include "blockShaderprogram.h"
 #include "blockVAOLoader.h"
-#include "ChunkManager.h"
-#include <iostream>
+#include "math.h"
 #include <vector>
 
 bool world_needs_updating = true;
 
-extern ChunkManager chunkManager;
 extern unsigned RENDER_DISTANCE_CHUNK;
 
 BlockRenderer::BlockRenderer(BlockShaderprogram& blockShaderprogram) : blockShaderprogram(blockShaderprogram)

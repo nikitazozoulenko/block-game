@@ -1,9 +1,12 @@
 #ifndef BLOCKRENDERER_H
 #define BLOCKRENDERER_H
 
-#include "blockShaderprogram.h"
-#include "ChunkManager.h"
-#include "Chunk.h"
+#include <GL\glew.h>
+#include <GLFW\glfw3.h>
+
+#include "gameWorld.h"
+
+class BlockShaderprogram;
 
 class BlockRenderer
 {

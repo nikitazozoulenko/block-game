@@ -1,5 +1,11 @@
 #include "blockShaderProgram.h"
 
+//Include GLEW
+#include <GL/glew.h>
+
+//Include GLFW  
+#include <GLFW/glfw3.h>
+
 BlockShaderprogram::BlockShaderprogram(const std::string& const vertexfile, const std::string& const fragmentfile)
 {
 	programID = glCreateProgram();

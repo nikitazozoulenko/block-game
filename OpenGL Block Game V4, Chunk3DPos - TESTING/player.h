@@ -9,18 +9,18 @@ class Player
 {
 public:
 	Player(glm::vec3 pos, float pitch, float yaw, float roll);
-	Player(float x, float y, float z, float pitch, float yaw, float roll);
+	//Player(float x, float y, float z, float pitch, float yaw, float roll);
 	
 
-	inline glm::vec3& get_pos();
-	inline Camera& get_camera();
+	glm::vec3& get_pos();
+	Camera& get_camera();
 
-	inline void set_pos(glm::vec3& pos);
-	inline void set_camera(Camera& camera);
+	void set_pos(glm::vec3& pos);
+	void set_camera(Camera& camera);
 
-	inline void move_forward(float ds);
-	inline void move_sideways(float ds);
-	inline void move_up(float ds);
+	void move_forward(float ds);
+	void move_sideways(float ds);
+	void move_up(float ds);
 
 protected:
 private:

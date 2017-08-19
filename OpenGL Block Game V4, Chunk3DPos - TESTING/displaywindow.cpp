@@ -1,18 +1,20 @@
 #include <iostream>
 #include "displaywindow.h"
 #include "camera.h"
+#include "player.h"
+#include "gameWorld.h"
 
-extern Camera player_camera;
-MÅSTE HA EN EXTERN CAMERA
+extern double last_cursor_xpos, last_cursor_ypos;
+extern GameWorld game_world;
 
 static void cursor_callback_move(GLFWwindow* window, double xpos, double ypos)
 {
-	extern double last_xpos;
-	extern double last_ypos;
-	player_camera.look_horizontal((xpos - last_xpos)*0.01);
-	player_camera.look_vertical((ypos - last_ypos)*0.01);
-	last_xpos = xpos;
-	last_ypos = ypos;
+	game_world.player.get_camera().look_horizontal((xpos - last_cursor_xpos)*0.01);
+	game_world.player.get_camera().look_vertical((ypos - last_cursor_ypos)*0.01);
+	last_cursor_xpos = xpos;
+	last_cursor_ypos = ypos;
+
+	//TODO: MAKE PLAYER ALSO LOOK AROUND, NOT JUST THE CAMERA
 }
 
 Displaywindow::Displaywindow(const int width, const int height, const char* const title, GLFWmonitor* glfw_monitor, GLFWwindow* glfw_other_window)

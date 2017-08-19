@@ -1,37 +1,71 @@
 #include "player.h"
 #include <iostream>
 
+//class Player
+//{
+//public:
+//	Player(glm::vec3 pos, float pitch, float yaw, float roll);
+//	Player(float x, float y, float z, float pitch, float yaw, float roll);
+//
+//
+//	inline glm::vec3& get_pos();
+//	inline Camera& get_camera();
+//
+//	inline void set_pos(glm::vec3& pos);
+//	inline void set_camera(Camera& camera);
+//
+//	inline void move_forward(float ds);
+//	inline void move_sideways(float ds);
+//	inline void move_up(float ds);
+//
+//protected:
+//private:
+//	glm::vec3 pos;
+//	float pitch;
+//	float yaw;
+//	float roll;
+//	Camera camera;
+//	int camera_mode;
+//	float MOVEMENTSPEED;
+//
+//	enum
+//	{
+//		FIRST_PERSON_CAM = 1,
+//		THIRD_PERSON_CAM = 3
+//	};
+//};
+
 Player::Player(glm::vec3 pos, float pitch, float yaw, float roll) : pos(pos), pitch(pitch), yaw(yaw), roll(roll), 
 	camera(Camera(pos, pitch, yaw, roll)), camera_mode(FIRST_PERSON_CAM), MOVEMENTSPEED(1)
 {
 
 }
 
-Player::Player(float x, float y, float z, float pitch, float yaw, float roll) : Player(glm::vec3(x,y,z), pitch, yaw, roll)
-{
-	
-}
+//Player::Player(float x, float y, float z, float pitch, float yaw, float roll) : Player(glm::vec3(x,y,z), pitch, yaw, roll)
+//{
+//	
+//}
 
-inline glm::vec3& Player::get_pos()
+glm::vec3& Player::get_pos()
 {
 	return pos;
 }
-inline Camera& Player::get_camera()
+Camera& Player::get_camera()
 {
 	return camera;
 }
 
-inline void Player::set_pos(glm::vec3& pos) 
+void Player::set_pos(glm::vec3& pos) 
 {
 	this->pos = pos;
 }
 
-inline void Player::set_camera(Camera& camera)
+void Player::set_camera(Camera& camera)
 {
 	this->camera = camera;
 }
 
-inline void Player::move_forward(float ds)
+void Player::move_forward(float ds)
 {
 	if (camera_mode == FIRST_PERSON_CAM)
 	{
@@ -46,7 +80,7 @@ inline void Player::move_forward(float ds)
 	
 }
 
-inline void Player::move_sideways(float ds)
+void Player::move_sideways(float ds)
 {
 	if (camera_mode == FIRST_PERSON_CAM)
 	{
@@ -61,7 +95,7 @@ inline void Player::move_sideways(float ds)
 	
 }
 
-inline void Player::move_up(float ds)
+void Player::move_up(float ds)
 {
 	if (camera_mode == FIRST_PERSON_CAM)
 	{

@@ -11,38 +11,47 @@
 #include <stdio.h>  
 #include <stdlib.h>
 #include <cstdint>
-
-//Include my own headers
-#include "displaywindow.h"
-#include "texIDLoader.h"
-#include "camera.h"
-#include "masterRenderer.h"
-#include "math.h"
-#include "ChunkManager.h"
-#include "player.h"
-
 #include <windows.h>
 #include <tchar.h>
 #include <strsafe.h>
 
+//Include my own headers
+#include "displaywindow.h"
+#include "gameWorld.h"
+#include "ChunkManager.h"
+#include "texIDLoader.h"
+#include "masterRenderer.h"
+
+#include "player.h"
+#include "camera.h"
+
+
+//forward declarations
 DWORD WINAPI chunk_manager_thread_func(void* ptr);
 void ErrorHandler(LPTSTR lpszFunction);
 void create_chunk_manager_thread(ChunkManager* ptr_chunk_manager);
 void close_chunk_manager_thread();
 void check_keyboard_input(Displaywindow &displaywindow, Player &player);
 
+//Chunk Manager Thread and Handle
 DWORD   threadID_chunk_manager;
 HANDLE  handle_chunk_manager;
 
+//for cursor callback
+double last_cursor_xpos, last_cursor_ypos;
+
+//Displaywindow pointer
 Displaywindow* p_displaywindow;
 
-double last_xpos, last_ypos;
+//World
+GameWorld game_world;
 
 int main()
 {
 	//init glfw
 	glfwInit();
 
+	
 	//create GLFWwindow and make context current
 	Displaywindow displaywindow = Displaywindow(1600, 900, "title", nullptr, nullptr);
 	p_displaywindow = &displaywindow;
@@ -51,10 +60,10 @@ int main()
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	Player player(glm::vec3(0, 0, 0), 0, 0, 0);
-	std::cout << player.get_camera().get_pos().x << std::endl;
+	game_world.test_function();
+
 	//Chunkmanager
-	ChunkManager chunk_manager(player.get_camera());
+	ChunkManager chunk_manager(game_world.player.get_camera());
 	create_chunk_manager_thread(&chunk_manager);
 
 	//Renderer
@@ -67,16 +76,15 @@ int main()
 	const char* greenpic = "greenpixel.png";
 	GLuint greenpixel = texIDLoader.LoadTexID(greenpic);
 
-	//sun
-	Light sun(glm::vec3(10000000, 20000000, 5000000));
+	
 
 	while (!displaywindow.ShouldClose()) 
 	{
 
 		displaywindow.PollEvents();
-		check_keyboard_input(displaywindow, player);
+		check_keyboard_input(displaywindow, game_world.player);
 
-		masterRenderer.render(player.get_camera(), sun, chunk_manager.GetChunkMap());
+		masterRenderer.render(game_world.player.get_camera(), game_world.sun, game_world.chunk_map);
 
 		displaywindow.SwapBuffers();
 	}

@@ -35,6 +35,7 @@
     <ClCompile Include="shaderprogram.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="texIDLoader.cpp" />
+    <ClCompile Include="gameWorld.cpp" />
     <ClCompile Include="world_gen_1.cpp" />
     <ClCompile Include="world_gen_2.cpp" />
     <ClCompile Include="world_gen_0.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texIDLoader.h" />
     <ClInclude Include="vertex.h" />
+    <ClInclude Include="gameWorld.h" />
     <ClInclude Include="world_gen_2.h" />
     <ClInclude Include="world_gen_1.h" />
     <ClInclude Include="world_gen_0.h" />
