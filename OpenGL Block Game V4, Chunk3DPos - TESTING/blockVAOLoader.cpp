@@ -86,8 +86,8 @@ void BlockVAOLoader::load_vao(GLuint& vao, GLuint* vbo_array, GLuint& ebo, Verte
 
 	//world
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_array[WORLD_VERTEX_BUFFER]);
-	glBufferData(GL_ARRAY_BUFFER, MAX_BLOCKS_RENDERING * 3 * sizeof(float), nullptr, GL_STREAM_DRAW);
-	glVertexAttribPointer(WORLD_VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glBufferData(GL_ARRAY_BUFFER, MAX_BLOCKS_RENDERING * 3 * sizeof(int), nullptr, GL_STREAM_DRAW);
+	glVertexAttribPointer(WORLD_VERTEX_BUFFER, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(int), 0);
 	glVertexAttribDivisor(WORLD_VERTEX_BUFFER, 1);
 
 	//ebo, indices

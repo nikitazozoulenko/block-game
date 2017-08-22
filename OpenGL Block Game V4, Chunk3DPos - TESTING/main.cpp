@@ -80,6 +80,8 @@ int main()
 
 		masterRenderer.render(game_world.player.get_camera(), game_world.sun, game_world.chunk_map);
 
+		std::cout << game_world.player.get_pos().x << ", " << game_world.player.get_pos().y << ", " << game_world.player.get_pos().z << std::endl;
+
 		displaywindow.SwapBuffers();
 	}
 	close_chunk_manager_thread();

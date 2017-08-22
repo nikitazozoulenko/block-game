@@ -23,7 +23,7 @@
     <ClCompile Include="blockShaderprogram.cpp" />
     <ClCompile Include="blockVAOLoader.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="Chunk3DPos.cpp" />
+    <ClCompile Include="position2D.cpp" />
     <ClCompile Include="ChunkManager.cpp" />
     <ClCompile Include="eventHandler.cpp" />
     <ClCompile Include="light.cpp" />
@@ -36,6 +36,7 @@
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="texIDLoader.cpp" />
     <ClCompile Include="gameWorld.cpp" />
+    <ClCompile Include="worldGen4.cpp" />
     <ClCompile Include="world_gen_1.cpp" />
     <ClCompile Include="world_gen_2.cpp" />
     <ClCompile Include="world_gen_0.cpp" />
@@ -46,10 +47,10 @@
     <ClInclude Include="blockShaderprogram.h" />
     <ClInclude Include="blockVAOLoader.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="Chunk3DPos.h" />
+    <ClInclude Include="position2D.h" />
     <ClInclude Include="ChunkManager.h" />
     <ClInclude Include="displaywindow.h" />
-    <ClInclude Include="Chunk.h" />
+    <ClInclude Include="chunk.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="eventHandler.h" />
     <ClInclude Include="light.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="texIDLoader.h" />
     <ClInclude Include="vertex.h" />
     <ClInclude Include="gameWorld.h" />
+    <ClInclude Include="worldGen4.h" />
     <ClInclude Include="world_gen_2.h" />
     <ClInclude Include="world_gen_1.h" />
     <ClInclude Include="world_gen_0.h" />

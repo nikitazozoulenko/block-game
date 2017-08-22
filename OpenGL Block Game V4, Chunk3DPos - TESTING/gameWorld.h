@@ -6,11 +6,11 @@
 #include "light.h"
 
 //include eller forward declare de här 2?
-#include "Chunk.h"
-#include"Chunk3DPos.h"
+#include "chunk.h"
+#include "position2D.h"
 
-typedef std::map<const Chunk3DPos, Chunk*> ChunkMap;
-typedef std::pair<const Chunk3DPos, Chunk*> ChunkAndPosPair;
+typedef std::map<const Position2D, Chunk*> ChunkMap;
+typedef std::pair<const Position2D, Chunk*> ChunkAndPosPair;
 
 class GameWorld
 {

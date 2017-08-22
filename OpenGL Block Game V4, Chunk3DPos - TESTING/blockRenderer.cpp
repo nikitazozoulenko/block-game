@@ -39,11 +39,6 @@ void BlockRenderer::render(const ChunkMap& chunkMap, Camera& camera)
 		{
 			--player_x;
 		}
-		int player_y = camera.get_pos().y / X_CHUNK_SIZE;
-		if (camera.get_pos().y < 0)
-		{
-			--player_y;
-		}
 		int player_z = camera.get_pos().z / X_CHUNK_SIZE;
 		if (camera.get_pos().z < 0)
 		{
@@ -52,15 +47,13 @@ void BlockRenderer::render(const ChunkMap& chunkMap, Camera& camera)
 
 		int lower_bound_x = player_x - RENDER_DISTANCE_CHUNK;
 		int higher_bound_x = player_x + RENDER_DISTANCE_CHUNK;
-		int lower_bound_y = player_y - RENDER_DISTANCE_CHUNK;
-		int higher_bound_y = player_y + RENDER_DISTANCE_CHUNK;
 		int lower_bound_z = player_z - RENDER_DISTANCE_CHUNK;
 		int higher_bound_z = player_z + RENDER_DISTANCE_CHUNK;
 
-		const Chunk3DPos pos = chunkAndPosPair.first;
+		const Position2D pos = chunkAndPosPair.first;
 		Chunk* chunk = chunkAndPosPair.second;
 
-		if ((pos.x<lower_bound_x || pos.x>higher_bound_x) || (pos.y<lower_bound_y || pos.y>higher_bound_y) || (pos.z<lower_bound_z || pos.z>higher_bound_z))
+		if ((pos.x<lower_bound_x || pos.x>higher_bound_x) || (pos.z<lower_bound_z || pos.z>higher_bound_z))
 		{
 			vector_needs_deleting.push_back(chunkAndPosPair);
 		}
@@ -128,15 +121,15 @@ void BlockRenderer::UnbindTexture(const GLuint texID)
 
 void BlockRenderer::prepare_blocks(const ChunkAndPosPair& const pair_chunk_and_pos, unsigned int i)
 {
-	const Chunk3DPos chunk_pos = pair_chunk_and_pos.first;
+	const Position2D chunk_pos = pair_chunk_and_pos.first;
 	Chunk* chunk = pair_chunk_and_pos.second;
 
 	if (chunk->needsUpdating[i])
 	{
 		std::vector<glm::ivec3> world_positions_vector;
-		for (int x = 0; x != Y_CHUNK_SIZE; ++x)
+		for (int x = 0; x != X_CHUNK_SIZE; ++x)
 		{
-			for (int y = 0; y != X_CHUNK_SIZE; ++y)
+			for (int y = 0; y != Y_CHUNK_SIZE; ++y)
 			{
 				for (int z = 0; z != Z_CHUNK_SIZE; ++z)
 				{
@@ -145,7 +138,7 @@ void BlockRenderer::prepare_blocks(const ChunkAndPosPair& const pair_chunk_and_p
 					{
 						if (!((block >> (15 - i)) & 1))        //(((block << 4) >> 15) == 0) //                         OLD     --->>>>   ((block >> 10) ^ bitmask[i])
 						{
-							world_positions_vector.push_back(glm::ivec3(chunk_pos.x*X_CHUNK_SIZE + x, chunk_pos.y*Y_CHUNK_SIZE + y, chunk_pos.z*Z_CHUNK_SIZE + z));
+							world_positions_vector.push_back(glm::ivec3(chunk_pos.x * X_CHUNK_SIZE + x, y, chunk_pos.z * Z_CHUNK_SIZE + z));
 						}
 					}
 				}

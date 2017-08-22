@@ -1,9 +1,9 @@
 #ifndef CHUNKV2_H
 #define CHUNKV2_H
 
-#define X_CHUNK_SIZE 32
-#define Y_CHUNK_SIZE 32
-#define Z_CHUNK_SIZE 32
+#define X_CHUNK_SIZE 16
+#define Y_CHUNK_SIZE 128
+#define Z_CHUNK_SIZE 16
 
 #include <glm\glm.hpp>
 
@@ -12,8 +12,6 @@ struct Chunk
 public:
 
 	enum Block{
-		
-
 		SOUTH,
 		NORTH,
 		DOWN,

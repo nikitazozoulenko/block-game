@@ -105,9 +105,6 @@
     <ClCompile Include="world_gen_3.cpp">
       <Filter>Source Files\World Gen</Filter>
     </ClCompile>
-    <ClCompile Include="Chunk3DPos.cpp">
-      <Filter>Source Files\World Gen</Filter>
-    </ClCompile>
     <ClCompile Include="world_gen_0.cpp">
       <Filter>Source Files\World Gen</Filter>
     </ClCompile>
@@ -128,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="gameWorld.cpp">
       <Filter>Source Files\Game Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="position2D.cpp">
+      <Filter>Source Files\World Gen</Filter>
+    </ClCompile>
+    <ClCompile Include="worldGen4.cpp">
+      <Filter>Source Files\World Gen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,12 +173,6 @@
     <ClInclude Include="world_gen_3.h">
       <Filter>Header Files\World Gen</Filter>
     </ClInclude>
-    <ClInclude Include="Chunk.h">
-      <Filter>Header Files\World Gen</Filter>
-    </ClInclude>
-    <ClInclude Include="Chunk3DPos.h">
-      <Filter>Header Files\World Gen</Filter>
-    </ClInclude>
     <ClInclude Include="world_gen_0.h">
       <Filter>Header Files\World Gen</Filter>
     </ClInclude>
@@ -202,6 +199,15 @@
     </ClInclude>
     <ClInclude Include="gameWorld.h">
       <Filter>Header Files\Game Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="position2D.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="chunk.h">
+      <Filter>Header Files\World Gen</Filter>
+    </ClInclude>
+    <ClInclude Include="worldGen4.h">
+      <Filter>Header Files\World Gen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
