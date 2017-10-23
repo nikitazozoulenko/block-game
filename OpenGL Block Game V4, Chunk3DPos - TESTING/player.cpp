@@ -3,7 +3,7 @@
 #include <glm\gtc\constants.hpp>
 
 Player::Player(glm::vec3 pos, float pitch, float yaw, float roll) : pos(pos), pitch(pitch), yaw(yaw), roll(roll), 
-	camera(Camera(pos, pitch, yaw, roll)), camera_mode(FIRST_PERSON_CAM), movementspeed(1), sensitivity(0.005)
+	camera(Camera(pos, pitch, yaw, roll)), camera_mode(FIRST_PERSON_CAM), movementspeed(40), sensitivity(0.005)
 {
 
 }

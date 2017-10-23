@@ -11,19 +11,18 @@
 extern GameWorld game_world;
 extern Displaywindow* p_displaywindow;
 
-unsigned RENDER_DISTANCE_CHUNK = 6; //    greater than zero
+unsigned RENDER_DISTANCE_CHUNK = 8; //    greater than zero
 
 DWORD WINAPI chunk_thread_func(void* ptr);
 
-constexpr int MAX_THREAD_COUNT = 4;
-bool threads_done[MAX_THREAD_COUNT];
+constexpr int MAX_THREAD_COUNT = 3;
 glm::vec2* p_chunk_positions[MAX_THREAD_COUNT];
 
 PackageChunkManagerInt* p_data[MAX_THREAD_COUNT];
 DWORD   id_thread[MAX_THREAD_COUNT];
 HANDLE  handle_thread[MAX_THREAD_COUNT];
 
-ChunkManager::ChunkManager() : worldGenerator(WorldGenerator()), chunkMap(game_world.chunk_map)
+ChunkManager::ChunkManager() : worldGenerator(WorldGenerator())
 {
 	for (int i = 0; i < MAX_THREAD_COUNT; i++)
 	{
@@ -52,7 +51,6 @@ DWORD WINAPI chunk_thread_func(void* ptr)
 {
 	PackageChunkManagerInt* data = (PackageChunkManagerInt*) ptr;
 	int i = data->i;
-	threads_done[i] = false;
 
 	while (!(p_displaywindow->ShouldClose()))
 	{
@@ -63,13 +61,13 @@ DWORD WINAPI chunk_thread_func(void* ptr)
 			p_chunk_positions[i] = nullptr;
 		}
 	}
-
+	return 0;
 }
 
 void ChunkManager::create_chunk(const int x, const int z)
 {
 	Position2D position(x, z);
-	chunkMap[position] = init_chunk(worldGenerator.gen_chunk_at_pos(x, z), position);
+	game_world.chunk_map[position] = init_chunk(worldGenerator.gen_chunk_at_pos(x, z), position);
 }
 
 void ChunkManager::create_chunk(const glm::vec2 pos)
@@ -233,12 +231,13 @@ Chunk* ChunkManager::init_chunk(Chunk* const chunk, const Position2D& const posi
 
 void ChunkManager::search_and_create_chunk(int x, int z)
 {
-	auto search = chunkMap.find(Position2D(x, z));
-	if (search == chunkMap.end())
+	auto search = game_world.chunk_map.find(Position2D(x, z));
+	if (search == game_world.chunk_map.end())
 	{
 		create_chunk(x, z);
 	}
 }
+
 void ChunkManager::loop()
 {
 	glm::vec3 playerpos = game_world.player.get_camera().get_pos();
@@ -256,10 +255,15 @@ void ChunkManager::loop()
 
 	//start search loop
 	int count = 0;
-	search_and_create_chunk(x, z);
+	auto search = game_world.chunk_map.find(Position2D(x, z));
+	if (search == game_world.chunk_map.end())
+	{
+		p_chunk_positions[count] = new glm::vec2(x, z);
+		++count;
+	}
 	x--;
 	z++;
-	for (int i = 1; i != RENDER_DISTANCE_CHUNK; ++i)
+	for (int i = 1; i < RENDER_DISTANCE_CHUNK; ++i)
 	{
 		for (int j = 0; j != i * 2; j++)
 		{
@@ -267,11 +271,12 @@ void ChunkManager::loop()
 			{
 				count = 0;
 				goto endloop;
+				
 			}
 			else
 			{
-				auto search = chunkMap.find(Position2D(x, z));
-				if (search == chunkMap.end())
+				auto search = game_world.chunk_map.find(Position2D(x, z));
+				if (search == game_world.chunk_map.end())
 				{
 					p_chunk_positions[count] = new glm::vec2(x, z);
 					++count;
@@ -288,8 +293,8 @@ void ChunkManager::loop()
 			}
 			else
 			{
-				auto search = chunkMap.find(Position2D(x, z));
-				if (search == chunkMap.end())
+				auto search = game_world.chunk_map.find(Position2D(x, z));
+				if (search == game_world.chunk_map.end())
 				{
 					p_chunk_positions[count] = new glm::vec2(x, z);
 					++count;
@@ -306,8 +311,8 @@ void ChunkManager::loop()
 			}
 			else
 			{
-				auto search = chunkMap.find(Position2D(x, z));
-				if (search == chunkMap.end())
+				auto search = game_world.chunk_map.find(Position2D(x, z));
+				if (search == game_world.chunk_map.end())
 				{
 					p_chunk_positions[count] = new glm::vec2(x, z);
 					++count;
@@ -324,8 +329,8 @@ void ChunkManager::loop()
 			}
 			else
 			{
-				auto search = chunkMap.find(Position2D(x, z));
-				if (search == chunkMap.end())
+				auto search = game_world.chunk_map.find(Position2D(x, z));
+				if (search == game_world.chunk_map.end())
 				{
 					p_chunk_positions[count] = new glm::vec2(x, z);
 					++count;
@@ -343,6 +348,6 @@ void ChunkManager::loop()
 
 void ChunkManager::unload_chunk(Chunk* chunk, const Position2D pos)
 {
-	chunkMap.erase(pos);
+	game_world.chunk_map.erase(pos);
 	delete chunk;
 }

@@ -7,7 +7,7 @@
 
 glm::vec2 WorldGenerator::unit_squared_vectors[4] = { glm::vec2(1,1), glm::vec2(-1,1),  glm::vec2(1,-1),  glm::vec2(-1,-1) };
 
-WorldGenerator::WorldGenerator() : weight_x(5), weight_z(3167), weightFinal(7919), SIMPLEX_WEIGHT(7)
+WorldGenerator::WorldGenerator() : weight_x(5), weight_z(7), weightFinal(11), SIMPLEX_WEIGHT(7)
 {
 
 }

@@ -11,14 +11,12 @@ public:
 	void create_chunk(const int x, const int z);
 	void create_chunk(const glm::vec2 pos);
 	void unload_chunk(Chunk* chunk, Position2D pos);
-	inline ChunkMap& GetChunkMap() { return chunkMap; }
 	void ChunkManager::loop();
 protected:
 private:
 	void search_and_create_chunk(int x, int z);
 	Chunk* init_chunk(Chunk* const chunk, const Position2D& const position);
 	WorldGenerator worldGenerator;
-	ChunkMap& chunkMap;
 };
 
 struct PackageChunkManagerInt
